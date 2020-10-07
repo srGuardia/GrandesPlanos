@@ -4,7 +4,10 @@ import { User } from "src/app/model/user";
 import { AuthService } from 'src/app/services/auth.service';
 import * as firebase from 'firebase';
 import { ToastController } from '@ionic/angular';
-// import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
+import { Global } from 'src/app/global';
+import { DefaultDAO } from 'src/dao/defaultDAO';
+import { ObjectFactory } from 'src/app/util/object-factory';
 
 @Component({
   selector: "app-login",
@@ -17,6 +20,7 @@ export class LoginPage implements OnInit {
   public usuarioLogado = false;
   public userID: any = null;
   public loading: any;
+  private target = 'user';
 
   constructor(
     private authService: AuthService,
@@ -24,8 +28,24 @@ export class LoginPage implements OnInit {
     public navParams: NavParams,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    // private storage: Storage
-  ) { }
+    private storage: Storage,
+    private global: Global,
+    private dao: DefaultDAO,
+    private objectFactory: ObjectFactory
+  ) {
+    this.global.showHeader = false;
+    const teste = this.storage.get('userData')
+    console.log('teste', teste)
+    const teste2 = this.storage.get('user')
+    console.log('teste2', teste2)
+  }
+
+  getUserData() {
+    this.dao.findByReference(this.target, this.userID).subscribe(res => {
+      this.userData = this.objectFactory.deserialize(res.data(), new User());
+      this.storage.set('userData', this.userData);
+    });
+  }
 
   async validateUser() {
     this.usuarioLogado = false;
@@ -54,8 +74,10 @@ export class LoginPage implements OnInit {
 
     try {
       await this.authService.login(this.userLogin).then((credential: firebase.auth.UserCredential) => {
-        // this.storage.set('user', this.userLogin);
-        this.navCtrl.navigateForward('home');
+        this.storage.set('user', this.userLogin);
+        this.getUserData();
+        this.global.showHeader = true;
+        this.navCtrl.navigateForward('/pages/home');
       }, error => {
         this.presentToast("Erro", error.message, "danger");
       })

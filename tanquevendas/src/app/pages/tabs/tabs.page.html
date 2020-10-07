@@ -1,0 +1,12 @@
+<ion-app>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ng-container *ngFor="let page of global.appPages">
+        <ion-tab-button *ngIf="page.display" [tab]="page.url" layout="icon-start" (click)="global.showHeader=page.showHeader">
+          <ion-icon [name]="page.icon"></ion-icon>
+          <ion-label>{{page.title | translate}}</ion-label>
+        </ion-tab-button>
+      </ng-container>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>

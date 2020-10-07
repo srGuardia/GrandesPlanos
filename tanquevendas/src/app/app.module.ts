@@ -15,19 +15,38 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //Variavel Ambiente
 import { environment } from '../environments/environment'
+import { Global } from './global';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-// import { IonicStorageModule } from '@ionic/storage';
-// import { Storage } from '@ionic/storage';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { DefaultDAO } from 'src/dao/defaultDAO';
+import { ObjectFactory } from './util/object-factory';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireAuthModule,],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(), TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [HttpClient]
+    }
+  }), AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireAuthModule, AngularFireStorageModule, AngularFirestoreModule],
   providers: [
     StatusBar,
     SplashScreen,
+    Global,
+    DefaultDAO,
+    ObjectFactory,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // Storage
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,17 @@
+ion-tab-button{
+    transition: all .2s;
+  }
+  ion-tab-button ion-icon{
+    //margin-top: 13px;
+    transition: all .2s;
+  }
+  ion-tab-button.tab-selected > ion-icon{
+    //margin-top: 0px;
+  }
+  ion-tab-button ion-label{
+    transition: all .2s;
+    font-size: 0px;
+  }
+  ion-tab-button.tab-selected > ion-label {
+    font-size: initial;
+  }
