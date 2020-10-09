@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
 import { DefaultDAO } from 'src/dao/defaultDAO';
 
@@ -11,9 +12,23 @@ import { DefaultDAO } from 'src/dao/defaultDAO';
 export class OrganizationsPage implements OnInit {
   private listOrganization: any[] = [];
   private target = "organization";
-  public filteredRows: any[] = [];
+  public userData: any = null;
 
-  constructor(private navCtrl: NavController, private dao: DefaultDAO, private global: Global) {
+  constructor(private navCtrl: NavController, private dao: DefaultDAO, private global: Global, private storage: Storage) {
+    this.storage.get('userData').then((dados) => {
+      if (dados != null) {
+
+        this.userData.id = dados._id;
+        this.userData.adm = dados._adm;
+
+        if (this.userData.adm) {
+          this.global.appPages[2].display = false;
+        } else {
+          this.global.appPages[0].display = false;
+          this.global.appPages[1].display = false;
+        }
+      }
+    });
   }
 
   goPage(pagina, id) {
@@ -53,6 +68,11 @@ export class OrganizationsPage implements OnInit {
 
   ionViewWillEnter() {
     this.refreshOrganizationList();
+  }
+
+  resetLogin() {
+    this.storage.clear();
+    this.navCtrl.navigateBack('login');
   }
 
   ngOnInit() {

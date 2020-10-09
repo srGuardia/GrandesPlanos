@@ -36,10 +36,20 @@ export class LoginPage implements OnInit {
     this.global.showHeader = false;
   }
 
-  getUserData() {
-    this.dao.findByReference(this.target, this.userID).subscribe(res => {
+  async getUserData() {
+    this.storage.remove('userData');
+    await this.dao.findByReference(this.target, this.userID).subscribe(res => {
       this.userData = this.objectFactory.deserialize(res.data(), new User());
       this.storage.set('userData', this.userData);
+
+      if (this.userData.adm) {
+        this.navigatePages("users");
+        this.global.appPages[2].display = false;
+      } else {
+        this.global.appPages[0].display = false;
+        this.global.appPages[1].display = false;
+        this.navigatePages("home");
+      }
     });
   }
 
@@ -73,13 +83,16 @@ export class LoginPage implements OnInit {
         this.storage.set('user', this.userLogin);
         this.getUserData();
         this.global.showHeader = true;
-        this.navCtrl.navigateForward('/pages/users');
       }, error => {
         this.presentToast("Erro", error.message, "danger");
       })
     } finally {
       this.loading.dismiss();
     }
+  }
+
+  navigatePages(url: string) {
+    this.navCtrl.navigateForward(`/pages/${url}`);
   }
 
   async presentLoading() {
@@ -93,5 +106,7 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
 import { Global } from 'src/app/global';
 import { DefaultDAO } from 'src/dao/defaultDAO';
@@ -15,12 +16,22 @@ export class UsersPage implements OnInit {
   public userData: any = null;
 
   private target = "user";
-  private rows: any[] = [];
 
-  constructor(public dao: DefaultDAO, public translate: TranslateService, private navCtrl: NavController, private global: Global) {
-    this.global.appPages.map(page => console.log('page', page))
+  constructor(public dao: DefaultDAO, public translate: TranslateService, private navCtrl: NavController, private global: Global, private storage: Storage) {
+    this.storage.get('userData').then((dados) => {
+      if (dados != null) {
 
-    console.log('window', window)
+        this.userData.id = dados._id;
+        this.userData.adm = dados._adm;
+
+        if (this.userData.adm) {
+          this.global.appPages[2].display = false;
+        } else {
+          this.global.appPages[0].display = false;
+          this.global.appPages[1].display = false;
+        }
+      }
+    });
   }
 
   goPage(pagina, id) {
@@ -58,11 +69,16 @@ export class UsersPage implements OnInit {
     }
   }
 
+  resetLogin() {
+    this.storage.clear();
+    this.navCtrl.navigateBack('login');
+  }
+
   ionViewWillEnter() {
     this.refreshUserList();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
 
 }

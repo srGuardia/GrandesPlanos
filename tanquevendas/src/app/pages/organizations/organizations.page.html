@@ -1,7 +1,4 @@
 <ion-header>
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-  </ion-buttons>
   <ion-toolbar style="margin-top: 5px">
     <ion-searchbar
       (input)="search($event)"
@@ -9,6 +6,9 @@
       slot="start"
     ></ion-searchbar>
   </ion-toolbar>
+  <ion-button (click)="resetLogin()" expand="block" color="danger">
+    Sair
+  </ion-button>
 </ion-header>
 
 <ion-content>

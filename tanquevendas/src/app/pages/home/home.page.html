@@ -1,24 +1,127 @@
-<!-- <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="schedule">
-      <ion-icon name="calendar"></ion-icon>
-      <ion-label>Schedule</ion-label>
-      <ion-badge>6</ion-badge>
-    </ion-tab-button>
+<ion-header>
+  <ion-item>
+    <ion-label>Tanque de Vendas</ion-label>
+    <ion-icon
+      name="log-out-outline"
+      (click)="resetLogin()"
+      color="primary"
+    ></ion-icon>
+  </ion-item>
+</ion-header>
 
-    <ion-tab-button tab="speakers">
-      <ion-icon name="person-circle"></ion-icon>
-      <ion-label>Speakers</ion-label>
-    </ion-tab-button>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size="12"
+        sizeSm="12"
+        sizeMd="8"
+        sizeLg="6"
+        sizeXl="4"
+        style="margin: 0 auto"
+      >
+        <ion-list style="padding-top: 0px" lines="none">
+          <ion-card style="padding: 0px">
+            <ion-card-content>
+              <p>Nome: {{userData.name}}</p>
+              <p>E-mail: {{userData.email}}</p>
+              <p>Corporação: {{organizationData._corporateName}}</p>
 
-    <ion-tab-button tab="map">
-      <ion-icon name="map"></ion-icon>
-      <ion-label>Map</ion-label>
-    </ion-tab-button>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{organizationData._linkRegister}}"
+                      style="width: 100%; height: 50px"
+                      disabled="{{!organizationData._linkRegister}}"
+                    >
+                      <ion-icon name="add" style="font-size: 37px"></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Cadastrar</p>
+                  </ion-col>
 
-    <ion-tab-button tab="about">
-      <ion-icon name="information-circle"></ion-icon>
-      <ion-label>About</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs> -->
+                  <ion-col size="6">
+                    <ion-button
+                      href="https://www.grandesplanos.com.br"
+                      style="width: 100%; height: 50px"
+                      color="secondary"
+                    >
+                      <ion-icon
+                        name="laptop-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Grandes Planos</p>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{organizationData._linkSales}}"
+                      style="width: 100%; height: 50px"
+                      color="success"
+                      disabled="{{!organizationData._linkSales}}"
+                    >
+                      <ion-icon
+                        name="logo-usd"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Tanque de Vendas</p>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      href="https://www.youtube.com/channel/UCBzh_sR8QNUQ7N1Nr4kTbmQ?view_as=public"
+                      style="width: 100%; height: 50px"
+                      color="danger"
+                    >
+                      <ion-icon
+                        name="logo-youtube"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Youtube</p>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{organizationData._linkForecast}}"
+                      style="width: 100%; height: 50px"
+                      color="tertiary"
+                      disabled="{{!organizationData._linkForecast}}"
+                    >
+                      <ion-icon
+                        name="stats-chart-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Forecast</p>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{organizationData._linkChange}}"
+                      style="width: 100%; height: 50px"
+                      color="dark"
+                      disabled="{{!organizationData._linkChange}}"
+                    >
+                      <ion-icon
+                        name="pencil-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                    <p style="text-align: center">Alterar</p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -9,6 +9,7 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 import { TabsPage } from './tabs.page';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [{
   path: 'pages',
@@ -16,27 +17,38 @@ const routes: Routes = [{
   children: [
     {
       path: 'users',
-      loadChildren: () => import('../users/users.module').then(m => m.UsersPageModule)
+      loadChildren: () => import('../users/users.module').then(m => m.UsersPageModule),
+      canActivate: [AuthGuard]
     },
     {
       path: 'organizations',
-      loadChildren: () => import('../organizations/organizations.module').then(m => m.OrganizationsPageModule)
+      loadChildren: () => import('../organizations/organizations.module').then(m => m.OrganizationsPageModule),
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'home',
+      loadChildren: () => import('../home/home.module').then(m => m.HomePageModule),
+      canActivate: [AuthGuard]
     },
     {
       path: 'register-user',
-      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule)
+      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule),
+      canActivate: [AuthGuard]
     },
     {
       path: 'register-user/:id',
-      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule)
+      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule),
+      canActivate: [AuthGuard]
     },
     {
       path: 'register-organization',
-      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule)
+      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule),
+      canActivate: [AuthGuard]
     },
     {
       path: 'register-organization/:id',
-      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule)
+      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule),
+      canActivate: [AuthGuard]
     },
   ]
 }]
