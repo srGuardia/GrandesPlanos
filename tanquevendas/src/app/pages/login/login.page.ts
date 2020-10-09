@@ -50,6 +50,8 @@ export class LoginPage implements OnInit {
         this.global.appPages[1].display = false;
         this.navigatePages("home");
       }
+
+      this.clearForm();
     });
   }
 
@@ -104,6 +106,10 @@ export class LoginPage implements OnInit {
     const toast = await this.toastCtrl.create({ header: header, message: message, color: color, duration: 2 * 1000 });
 
     toast.present();
+  }
+
+  clearForm() {
+    this.userLogin = {}
   }
 
   async ngOnInit() {

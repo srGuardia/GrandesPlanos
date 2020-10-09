@@ -13,7 +13,7 @@ import { DefaultDAO } from 'src/dao/defaultDAO';
 export class UsersPage implements OnInit {
   public userList: any[] = [];
   public filteredRows: any[] = [];
-  public userData: any = null;
+  public userData: any = {};
 
   private target = "user";
 

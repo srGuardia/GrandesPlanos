@@ -12,7 +12,7 @@ import { DefaultDAO } from 'src/dao/defaultDAO';
 export class OrganizationsPage implements OnInit {
   private listOrganization: any[] = [];
   private target = "organization";
-  public userData: any = null;
+  public userData: any = {};
 
   constructor(private navCtrl: NavController, private dao: DefaultDAO, private global: Global, private storage: Storage) {
     this.storage.get('userData').then((dados) => {
