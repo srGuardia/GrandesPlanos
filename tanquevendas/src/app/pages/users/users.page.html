@@ -41,14 +41,17 @@
           >Adicionar Usuário
         </ion-button>
         <ion-list style="padding-top: 0px" lines="none">
-          <ion-card
-            style="padding: 0px"
-            *ngFor="let item of userList"
-            (click)="editRegister(item)"
-          >
+          <ion-card style="padding: 0px" *ngFor="let item of userList">
             <ion-card-content>
               <p>Nome: {{item._name}}</p>
               <p>E-mail: {{item._email}}</p>
+              <ion-button
+                (click)="editRegister(item)"
+                expand="block"
+                color="dark"
+              >
+                Editar
+              </ion-button>
             </ion-card-content>
           </ion-card>
         </ion-list>

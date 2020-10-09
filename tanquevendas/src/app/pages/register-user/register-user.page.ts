@@ -4,6 +4,7 @@ import { DefaultDAO } from 'src/dao/defaultDAO';
 import * as firebase from 'firebase';
 import { User } from 'src/app/model/user';
 import { Organization } from 'src/app/model/organization';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -17,8 +18,10 @@ export class RegisterUserPage implements OnInit {
   private target = 'organization';
   private targetUser = 'user';
   private organizationSelect: any = {};
+  private uidUser: string = null;
+  public selectedUser: User = null;
 
-  constructor(private dao: DefaultDAO, private navCtrl: NavController, private toastCtrl: ToastController) { }
+  constructor(private dao: DefaultDAO, private navCtrl: NavController, private toastCtrl: ToastController, private activatedRoute: ActivatedRoute) { }
 
   async refreshOrganization() {
     this.organizationList = [];
@@ -37,23 +40,60 @@ export class RegisterUserPage implements OnInit {
     }
     else {
       this.organizationSelect = this.organizationList.filter(item => item._id === this.organizationData.id);
-      this.createUser(this.userData.email, this.userData.password);
+
+      if (this.selectedUser != null) {
+        this.updateUser();
+      }
+      else {
+        this.createUser(this.userData.email, this.userData.password);
+      }
+    }
+  }
+
+  async updateUser() {
+    try {
+      let newUser = new User();
+      let newOrganization = new Organization();
+
+      newUser.id = this.selectedUser.id;
+      newUser.name = this.userData.name;
+      newUser.email = this.userData.email;
+      newUser.password = this.userData.password;
+      if (this.selectedUser.adm) {
+        newUser.adm = true;
+      }
+      else {
+        newUser.adm = false;
+      }
+
+      newOrganization.id = this.organizationSelect[0]._id;;
+      newOrganization.corporateName = this.organizationSelect[0]._corporateName;
+      newOrganization.linkRegister = this.organizationSelect[0]._linkRegister;
+      newOrganization.linkChange = this.organizationSelect[0]._linkChange;
+      newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
+      newOrganization.linkSales = this.organizationSelect[0]._linkSales;
+
+      newUser.organization = Object.assign({}, newOrganization);
+
+      await this.dao.updateByReference(this.targetUser, this.selectedUser.id, newUser).then(() => {
+        this.presentToast("Sucesso", "Usuário atualizado!", "success");
+      })
+    } catch (error) {
+      this.presentToast("Erro", error.message, "danger");
     }
   }
 
   async createUser(email: any, password: any) {
-    let uidUser = null;
+    this.uidUser = null;
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password).then((resp) => {
-        uidUser = resp.user.uid;
+        this.uidUser = resp.user.uid;
       });
-
     } catch (error) {
-      console.log('aqui', error)
       this.presentToast("Erro", error.message, "danger");
     }
 
-    this.saveCollectionUser(uidUser);
+    this.saveCollectionUser(this.uidUser);
   }
 
   async saveCollectionUser(uid) {
@@ -98,6 +138,7 @@ export class RegisterUserPage implements OnInit {
 
   clearForm() {
     this.userData = {};
+    this.organizationData = {};
   }
 
 
@@ -105,7 +146,27 @@ export class RegisterUserPage implements OnInit {
     this.refreshOrganization();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.uidUser = await this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.uidUser != null) {
+      //Carrega as informações do usuário com base no ID do parâmetro
+      await this.dao.findByReference(this.targetUser, this.uidUser).subscribe(value => {
+        this.selectedUser = Object.assign(new User(), value.data());
+
+        let newOrganization = new Organization();
+
+        if (this.selectedUser != null) {
+          this.userData.name = this.selectedUser.name;
+          this.userData.email = this.selectedUser.email;
+          this.userData.password = this.selectedUser.password;
+
+          newOrganization = Object.assign(new Organization(), this.selectedUser.organization);
+
+          this.organizationData.id = newOrganization.id;
+          this.organizationData.corporateName = newOrganization.corporateName;
+        }
+      });
+    }
   }
 
 }

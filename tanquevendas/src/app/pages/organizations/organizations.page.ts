@@ -47,6 +47,10 @@ export class OrganizationsPage implements OnInit {
     }
   }
 
+  editRegister(item) {
+    this.goPage('/pages/register-organization', item._id);
+  }
+
   ionViewWillEnter() {
     this.refreshOrganizationList();
   }

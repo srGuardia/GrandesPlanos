@@ -39,6 +39,10 @@ export class UsersPage implements OnInit {
 
   }
 
+  editRegister(item) {
+    this.goPage('/pages/register-user', item._id);
+  }
+
   async search(event) {
     let value = event.target.value;
     if (!value) {

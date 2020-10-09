@@ -45,8 +45,17 @@
           <ion-card style="padding: 0px" *ngFor="let item of listOrganization">
             <ion-card-content>
               <p>Corporação: {{item._corporateName}}</p>
+              <p>
+                <ion-button
+                  (click)="editRegister(item)"
+                  expand="block"
+                  color="dark"
+                >
+                  Editar
+                </ion-button>
+              </p>
 
-              <ion-grid fixed>
+              <ion-grid>
                 <ion-row>
                   <ion-col size="6">
                     <ion-button
