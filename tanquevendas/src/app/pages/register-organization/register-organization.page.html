@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro de Organização</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Organização</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="organizationData.corporateName"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item-divider>
+        <ion-label> Links de Formulários </ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="stacked">Cadastrar</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="organizationData.linkRegister"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Tanque de Vendas</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="organizationData.linkSales"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Forecast</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="organizationData.linkForecast"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Alterar</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="organizationData.linkChange"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button (click)="onSave()" expand="block"> Salvar </ion-button>
+      <ion-button (click)="returnPage()" expand="block" color="danger">
+        Cancelar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

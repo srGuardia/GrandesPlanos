@@ -13,17 +13,32 @@ import { TranslateModule } from '@ngx-translate/core';
 const routes: Routes = [{
   path: 'pages',
   component: TabsPage,
-  children: [{
-    path: 'home',
-    loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-  }, {
-    path: 'users',
-    loadChildren: () => import('../users/users.module').then(m => m.UsersPageModule)
-  },
-  {
-    path: 'organizacao',
-    loadChildren: () => import('../organizacao/organizacao.module').then(m => m.OrganizacaoPageModule)
-  }]
+  children: [
+    {
+      path: 'users',
+      loadChildren: () => import('../users/users.module').then(m => m.UsersPageModule)
+    },
+    {
+      path: 'organizations',
+      loadChildren: () => import('../organizations/organizations.module').then(m => m.OrganizationsPageModule)
+    },
+    {
+      path: 'register-user',
+      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule)
+    },
+    {
+      path: 'register-user/:id',
+      loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterUserPageModule)
+    },
+    {
+      path: 'register-organization',
+      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule)
+    },
+    {
+      path: 'register-organization/:id',
+      loadChildren: () => import('../register-organization/register-organization.module').then(m => m.RegisterOrganizationPageModule)
+    },
+  ]
 }]
 
 @NgModule({

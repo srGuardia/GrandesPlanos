@@ -34,10 +34,6 @@ export class LoginPage implements OnInit {
     private objectFactory: ObjectFactory
   ) {
     this.global.showHeader = false;
-    const teste = this.storage.get('userData')
-    console.log('teste', teste)
-    const teste2 = this.storage.get('user')
-    console.log('teste2', teste2)
   }
 
   getUserData() {
@@ -54,9 +50,9 @@ export class LoginPage implements OnInit {
       this.presentToast("Validação", "Campos obrigatórios", "warning");
     }
     else {
-      await firebase.auth().signInWithEmailAndPassword(this.userLogin.email, this.userLogin.password).then(({ user }) => {
+      await firebase.auth().signInWithEmailAndPassword(this.userLogin.email, this.userLogin.password).then((res) => {
         this.usuarioLogado = true;
-        this.userID = user.uid;
+        this.userID = res.user.uid;
         this.presentToast("Sucesso", "Usuário logado", "success");
       }, error => {
         this.presentToast("Erro", error.message, "danger");
@@ -77,7 +73,7 @@ export class LoginPage implements OnInit {
         this.storage.set('user', this.userLogin);
         this.getUserData();
         this.global.showHeader = true;
-        this.navCtrl.navigateForward('/pages/home');
+        this.navCtrl.navigateForward('/pages/users');
       }, error => {
         this.presentToast("Erro", error.message, "danger");
       })
@@ -92,7 +88,7 @@ export class LoginPage implements OnInit {
   }
 
   async presentToast(header: string, message: string, color: string) {
-    const toast = await this.toastCtrl.create({ header: header, message: message, color: color, duration: 3 * 1000 });
+    const toast = await this.toastCtrl.create({ header: header, message: message, color: color, duration: 2 * 1000 });
 
     toast.present();
   }

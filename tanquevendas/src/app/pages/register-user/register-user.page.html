@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro de Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="userData.name"
+          required="true"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">E-mail</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="userData.email"
+          required="true"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Senha</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="userData.password"
+          required="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Organização</ion-label>
+        <ion-select placeholder="Selecione" [(ngModel)]="organizationData.id">
+          <ion-select-option
+            *ngFor="let item of organizationList"
+            value="{{item._id}}"
+            >{{item._corporateName}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-button (click)="onSave()" expand="block"> Salvar </ion-button>
+      <ion-button (click)="returnPage()" expand="block" color="danger">
+        Cancelar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

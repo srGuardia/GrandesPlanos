@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-toolbar style="margin-top: 5px">
+    <ion-searchbar
+      (input)="search($event)"
+      mode="ios"
+      slot="start"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        size="12"
+        sizeSm="12"
+        sizeMd="8"
+        sizeLg="6"
+        sizeXl="4"
+        style="margin: 0 auto"
+      >
+        <ion-button
+          expand="block"
+          color="primary"
+          (click)="goPage('/pages/register-organization', null)"
+          fill="clear"
+        >
+          <ion-icon
+            style="
+              margin: 0px;
+              margin-right: 10px;
+              font-size: xx-large !important;
+            "
+            name="add"
+            slot="start"
+          >
+          </ion-icon
+          >Adicionar Organização
+        </ion-button>
+
+        <ion-list style="padding-top: 0px" lines="none">
+          <ion-card style="padding: 0px" *ngFor="let item of listOrganization">
+            <ion-card-content>
+              <p>Corporação: {{item._corporateName}}</p>
+
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{item._linkRegister}}"
+                      style="width: 100%; height: 50px"
+                    >
+                      <ion-icon name="add" style="font-size: 37px"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      href="https://www.grandesplanos.com.br"
+                      style="width: 100%; height: 50px"
+                      color="secondary"
+                    >
+                      <ion-icon
+                        name="laptop-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{item._linkSales}}"
+                      style="width: 100%; height: 50px"
+                      color="success"
+                    >
+                      <ion-icon
+                        name="logo-usd"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      href="https://www.youtube.com/channel/UCBzh_sR8QNUQ7N1Nr4kTbmQ?view_as=public"
+                      style="width: 100%; height: 50px"
+                      color="danger"
+                    >
+                      <ion-icon
+                        name="logo-youtube"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{item._linkForecast}}"
+                      style="width: 100%; height: 50px"
+                      color="tertiary"
+                    >
+                      <ion-icon
+                        name="stats-chart-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-button
+                      href="{{item._linkChange}}"
+                      style="width: 100%; height: 50px"
+                      color="dark"
+                    >
+                      <ion-icon
+                        name="pencil-outline"
+                        style="font-size: 37px"
+                      ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

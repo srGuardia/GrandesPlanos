@@ -6,13 +6,15 @@ export class User {
     private _email: String;
     private _password: String;
     private _organization: Organization;
+    private _adm: Boolean;
 
-    constructor(id?: String, name?: String, email?: String, password?: String, organization?: Organization) {
+    constructor(id?: String, name?: String, email?: String, password?: String, organization?: Organization, adm?: Boolean) {
         this._id = id;
         this._name = name;
         this._email = email;
         this._password = password;
         this._organization = organization;
+        this._adm = adm;
     }
 
     get id(): String {
@@ -53,5 +55,13 @@ export class User {
 
     set organization(value: Organization) {
         this._organization = value;
+    }
+
+    get adm(): Boolean {
+        return this._adm;
+    }
+
+    set adm(value: Boolean) {
+        this._adm = value;
     }
 }
