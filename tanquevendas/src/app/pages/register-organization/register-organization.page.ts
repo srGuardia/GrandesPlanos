@@ -15,7 +15,7 @@ export class RegisterOrganizationPage implements OnInit {
   constructor(private navCtrl: NavController, private toastCtrl: ToastController, private dao: DefaultDAO) { }
 
   onSave() {
-    if (this.organizationData.corporateName == null || this.organizationData.linkRegister == null || this.organizationData.linkSales == null || this.organizationData.linkForecast == null || this.organizationData.linkChange == null) {
+    if (this.organizationData.corporateName == null) {
       this.presentToast("Validação", "Campos obrigatórios", "warning");
     }
     else {
@@ -26,7 +26,7 @@ export class RegisterOrganizationPage implements OnInit {
   async saveCollectionOrganization() {
     try {
       let newOrganization = new Organization();
-      
+
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister;
       newOrganization.linkChange = this.organizationData.linkChange;
@@ -50,6 +50,7 @@ export class RegisterOrganizationPage implements OnInit {
 
   returnPage() {
     this.navCtrl.navigateBack("/pages/organizations");
+    this.clearForm();
   }
 
   clearForm() {

@@ -15,6 +15,7 @@ export class UsersPage implements OnInit {
   public userData: any = null;
 
   private target = "user";
+  private rows: any[] = [];
 
   constructor(public dao: DefaultDAO, public translate: TranslateService, private navCtrl: NavController, private global: Global) {
     this.global.appPages.map(page => console.log('page', page))
@@ -39,12 +40,18 @@ export class UsersPage implements OnInit {
   }
 
   async search(event) {
-    this.userList.map((item) => {
-      if (item._name.includes(event.data) || item._email.includes(event.data)) {
-        return item;
+    let value = event.target.value;
+    if (!value) {
+      this.refreshUserList()
+    }
+    else {
+      let array = [];
+      array = this.userList.filter(item => item._name.slice(0, 3).toLowerCase() == value.toLowerCase());
+
+      if (array.length > 0) {
+        this.userList = [...array]
       }
-      this.filteredRows.push(item);
-    });
+    }
   }
 
   ionViewWillEnter() {

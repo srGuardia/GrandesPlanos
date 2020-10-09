@@ -93,6 +93,7 @@ export class RegisterUserPage implements OnInit {
 
   returnPage() {
     this.navCtrl.navigateBack("/pages/users");
+    this.clearForm();
   }
 
   clearForm() {

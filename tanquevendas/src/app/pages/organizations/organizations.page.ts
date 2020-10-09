@@ -21,7 +21,7 @@ export class OrganizationsPage implements OnInit {
     this.navCtrl.navigateForward(pagina, { animated: true });
   }
 
-  async refreshUserList() {
+  async refreshOrganizationList() {
     this.listOrganization = [];
     await this.dao.listAll(this.target).subscribe(value => {
       value.forEach(result => {
@@ -33,16 +33,22 @@ export class OrganizationsPage implements OnInit {
   }
 
   async search(event) {
-    this.listOrganization.map((item) => {
-      if (item._corporateName.includes(event.data)) {
-        return item;
+    let value = event.target.value;
+    if (!value) {
+      this.refreshOrganizationList()
+    }
+    else {
+      let array = [];
+      array = this.listOrganization.filter(item => item._corporateName.slice(0, 3).toLowerCase() == value.toLowerCase());
+
+      if (array.length > 0) {
+        this.listOrganization = [...array]
       }
-      this.filteredRows.push(item);
-    });
+    }
   }
 
   ionViewWillEnter() {
-    this.refreshUserList();
+    this.refreshOrganizationList();
   }
 
   ngOnInit() {
