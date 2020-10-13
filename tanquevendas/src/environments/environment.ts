@@ -11,8 +11,11 @@ export const environment = {
     projectId: "tanquevendas",
     storageBucket: "tanquevendas.appspot.com",
     messagingSenderId: "136440818165",
-    appId: "1:136440818165:web:bf332c9312bf0643bb18bc"
-  }
+    appId: "1:136440818165:web:bf332c9312bf0643bb18bc",
+  },
+  googleSheets: {
+    sheetID: "1Yb-GLAUZm5xGqRHYIuv05HO7mawZe8981aZdK1j716E",
+  },
 };
 
 /*
