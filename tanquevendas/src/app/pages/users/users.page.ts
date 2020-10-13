@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-import { TranslateService } from '@ngx-translate/core';
-import { Global } from 'src/app/global';
-import { DefaultDAO } from 'src/dao/defaultDAO';
+import { Component, OnInit } from "@angular/core";
+import { NavController } from "@ionic/angular";
+import { Storage } from "@ionic/storage";
+import { TranslateService } from "@ngx-translate/core";
+import { Global } from "src/app/global";
+import { DefaultDAO } from "src/dao/defaultDAO";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.page.html',
-  styleUrls: ['./users.page.scss'],
+  selector: "app-users",
+  templateUrl: "./users.page.html",
+  styleUrls: ["./users.page.scss"],
 })
 export class UsersPage implements OnInit {
   public userList: any[] = [];
@@ -17,11 +17,17 @@ export class UsersPage implements OnInit {
 
   private target = "user";
 
-  constructor(public dao: DefaultDAO, public translate: TranslateService, private navCtrl: NavController, private global: Global, private storage: Storage) {
-    this.storage.get('userData').then((dados) => {
+  constructor(
+    public dao: DefaultDAO,
+    public translate: TranslateService,
+    private navCtrl: NavController,
+    private global: Global,
+    private storage: Storage
+  ) {
+    this.storage.get("userData").then((dados) => {
       if (dados != null) {
-
         this.userData.id = dados._id;
+        this.userData.name = dados._name;
         this.userData.adm = dados._adm;
 
         if (this.userData.adm) {
@@ -41,44 +47,42 @@ export class UsersPage implements OnInit {
 
   async refreshUserList() {
     this.userList = [];
-    await this.dao.listAll(this.target).subscribe(value => {
-      value.forEach(result => {
+    await this.dao.listAll(this.target).subscribe((value) => {
+      value.forEach((result) => {
         let object = result.data();
         this.userList.push(object);
       });
     });
-
   }
 
   editRegister(item) {
-    this.goPage('/pages/register-user', item._id);
+    this.goPage("/pages/register-user", item._id);
   }
 
   async search(event) {
     let value = event.target.value;
     if (!value) {
-      this.refreshUserList()
-    }
-    else {
+      this.refreshUserList();
+    } else {
       let array = [];
-      array = this.userList.filter(item => item._name.slice(0, 3).toLowerCase() == value.toLowerCase());
+      array = this.userList.filter(
+        (item) => item._name.slice(0, 3).toLowerCase() == value.toLowerCase()
+      );
 
       if (array.length > 0) {
-        this.userList = [...array]
+        this.userList = [...array];
       }
     }
   }
 
   resetLogin() {
     this.storage.clear();
-    this.navCtrl.navigateBack('login');
+    this.navCtrl.navigateBack("login");
   }
 
   ionViewWillEnter() {
     this.refreshUserList();
   }
 
-  async ngOnInit() {
-  }
-
+  async ngOnInit() {}
 }

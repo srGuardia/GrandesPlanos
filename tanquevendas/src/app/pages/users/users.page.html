@@ -1,7 +1,9 @@
 <ion-header>
-  <ion-buttons slot="start">
-    <ion-menu-button></ion-menu-button>
-  </ion-buttons>
+  <ion-item>
+    <ion-label>Seja bem vindo <strong>{{userData.name}}</strong></ion-label>
+    <ion-icon (click)="resetLogin()" name="log-out-outline" color="medium">
+    </ion-icon>
+  </ion-item>
   <ion-toolbar style="margin-top: 5px">
     <ion-searchbar
       (input)="search($event)"
@@ -9,9 +11,6 @@
       slot="start"
     ></ion-searchbar>
   </ion-toolbar>
-  <ion-button (click)="resetLogin()" expand="block" color="danger">
-    Sair
-  </ion-button>
 </ion-header>
 
 <ion-content>
@@ -46,12 +45,13 @@
         <ion-list style="padding-top: 0px" lines="none">
           <ion-card style="padding: 0px" *ngFor="let item of userList">
             <ion-card-content>
-              <p>Nome: {{item._name}}</p>
-              <p>E-mail: {{item._email}}</p>
+              <p>Nome: <strong>{{item._name}}</strong></p>
+              <p>E-mail: <strong>{{item._email}}</strong></p>
               <ion-button
                 (click)="editRegister(item)"
                 expand="block"
                 color="dark"
+                style="margin-top: 10px"
               >
                 Editar
               </ion-button>

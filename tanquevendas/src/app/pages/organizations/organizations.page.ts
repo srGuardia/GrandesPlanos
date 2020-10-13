@@ -19,6 +19,7 @@ export class OrganizationsPage implements OnInit {
       if (dados != null) {
 
         this.userData.id = dados._id;
+        this.userData.name = dados._name;
         this.userData.adm = dados._adm;
 
         if (this.userData.adm) {
