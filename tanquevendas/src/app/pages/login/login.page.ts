@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
   }
 
   async getUserData() {
-    this.storage.remove('userData');
+    await this.storage.remove('userData');
     await this.dao.findByReference(this.target, this.userID).subscribe(res => {
       this.userData = this.objectFactory.deserialize(res.data(), new User());
       this.storage.set('userData', this.userData);

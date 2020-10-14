@@ -11,7 +11,7 @@ export class GoogleProvider {
   load() {
     const url =
       "https://spreadsheets.google.com/feeds/list/" +
-      environment.googleSheets.sheetID +
+      environment.googleSheets.sheetIDDemo +
       "/od6/public/values?alt=json";
 
     return this.http.get(url).toPromise();
