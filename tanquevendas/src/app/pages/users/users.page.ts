@@ -23,22 +23,7 @@ export class UsersPage implements OnInit {
     private navCtrl: NavController,
     private global: Global,
     private storage: Storage
-  ) {
-    this.storage.get("userData").then((dados) => {
-      if (dados != null) {
-        this.userData.id = dados._id;
-        this.userData.name = dados._name;
-        this.userData.adm = dados._adm;
-
-        if (this.userData.adm) {
-          this.global.appPages[2].display = false;
-        } else {
-          this.global.appPages[0].display = false;
-          this.global.appPages[1].display = false;
-        }
-      }
-    });
-  }
+  ) {}
 
   goPage(pagina, id) {
     if (id != null) pagina += "/" + id;
@@ -84,5 +69,20 @@ export class UsersPage implements OnInit {
     this.refreshUserList();
   }
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    await this.storage.get("userData").then((dados) => {
+      if (dados != null) {
+        this.userData.id = dados._id;
+        this.userData.name = dados._name;
+        this.userData.adm = dados._adm;
+
+        if (this.userData.adm) {
+          this.global.appPages[2].display = false;
+        } else {
+          this.global.appPages[0].display = false;
+          this.global.appPages[1].display = false;
+        }
+      }
+    });
+  }
 }

@@ -38,7 +38,7 @@ export class RegisterOrganizationPage implements OnInit {
       newOrganization.id = this.selectOrganization.id;
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister;
-      newOrganization.linkChange = this.organizationData.linkChange;
+      // newOrganization.linkChange = this.organizationData.linkChange;
       newOrganization.linkForecast = this.organizationData.linkForecast;
       newOrganization.linkSales = this.organizationData.linkSales;
 
@@ -56,7 +56,7 @@ export class RegisterOrganizationPage implements OnInit {
 
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister;
-      newOrganization.linkChange = this.organizationData.linkChange;
+      // newOrganization.linkChange = this.organizationData.linkChange;
       newOrganization.linkForecast = this.organizationData.linkForecast;
       newOrganization.linkSales = this.organizationData.linkSales;
 
@@ -93,7 +93,7 @@ export class RegisterOrganizationPage implements OnInit {
 
         if (this.selectOrganization != null) {
           this.organizationData.corporateName = this.selectOrganization.corporateName;
-          this.organizationData.linkChange = this.selectOrganization.linkChange;
+          // this.organizationData.linkChange = this.selectOrganization.linkChange;
           this.organizationData.linkForecast = this.selectOrganization.linkForecast;
           this.organizationData.linkRegister = this.selectOrganization.linkRegister;
           this.organizationData.linkSales = this.selectOrganization.linkSales;

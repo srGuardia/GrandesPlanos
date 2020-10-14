@@ -12,7 +12,7 @@ import { GoogleProvider } from "src/app/providers/google";
 export class LinksUsersPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  private listinks: any[] = [];
+  private listLinks: any[] = [];
   private userData: any = {};
 
   constructor(
@@ -25,7 +25,7 @@ export class LinksUsersPage implements OnInit {
   async refreshLinksUsers() {
     await this.googleProvider.load().then((dados: any) => {
       const obj: any = dados.feed;
-      this.listinks = obj.entry;
+      this.listLinks = obj.entry;
     });
   }
 
@@ -36,13 +36,13 @@ export class LinksUsersPage implements OnInit {
       if (names.length >= 3) {
         let arrayFilter = [];
 
-        arrayFilter = this.listinks.filter(
+        arrayFilter = this.listLinks.filter(
           (item) =>
             item.gsx$nome.$t.slice(0, 3).toLowerCase() == names.toLowerCase()
         );
 
         if (arrayFilter.length > 0) {
-          this.listinks = [...arrayFilter];
+          this.listLinks = [...arrayFilter];
         }
       } else {
         await this.refreshLinksUsers();
@@ -52,6 +52,8 @@ export class LinksUsersPage implements OnInit {
 
   async ngOnInit() {
     await this.refreshLinksUsers();
+
+    console.log(this.listLinks)
 
     await this.storage.get("userData").then((dados) => {
       if (dados != null) {

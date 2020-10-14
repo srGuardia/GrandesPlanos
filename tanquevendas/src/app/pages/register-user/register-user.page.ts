@@ -1,50 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
-import { DefaultDAO } from 'src/dao/defaultDAO';
-import * as firebase from 'firebase';
-import { User } from 'src/app/model/user';
-import { Organization } from 'src/app/model/organization';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { NavController, ToastController } from "@ionic/angular";
+import { DefaultDAO } from "src/dao/defaultDAO";
+import * as firebase from "firebase";
+import { User } from "src/app/model/user";
+import { Organization } from "src/app/model/organization";
+import { ActivatedRoute } from "@angular/router";
+import { PopoverController } from "@ionic/angular";
+import { LinksUsersPage } from "../links-users/links-users.page";
 
 @Component({
-  selector: 'app-register-user',
-  templateUrl: './register-user.page.html',
-  styleUrls: ['./register-user.page.scss'],
+  selector: "app-register-user",
+  templateUrl: "./register-user.page.html",
+  styleUrls: ["./register-user.page.scss"],
 })
 export class RegisterUserPage implements OnInit {
   private userData: any = {};
   private organizationData: any = {};
   private organizationList = [];
-  private target = 'organization';
-  private targetUser = 'user';
+  private target = "organization";
+  private targetUser = "user";
   private organizationSelect: any = {};
   private uidUser: string = null;
-  public selectedUser: User = null;
+  private selectedUser: User = null;
+  private linkAlter: String = null;
 
-  constructor(private dao: DefaultDAO, private navCtrl: NavController, private toastCtrl: ToastController, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private dao: DefaultDAO,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController,
+    private activatedRoute: ActivatedRoute,
+    private popCtrl: PopoverController
+  ) {}
 
   async refreshOrganization() {
     this.organizationList = [];
-    await this.dao.listAll(this.target).subscribe(value => {
-      value.forEach(result => {
+    await this.dao.listAll(this.target).subscribe((value) => {
+      value.forEach((result) => {
         let object = result.data();
         this.organizationList.push(object);
       });
     });
-
   }
 
   onSave() {
-    if (this.userData.name == null || this.userData.password == null || this.userData.email == null || this.organizationData.id == null) {
+    if (
+      this.userData.name == null ||
+      this.userData.password == null ||
+      this.userData.email == null ||
+      this.organizationData.id == null
+    ) {
       this.presentToast("Validação", "Campos obrigatórios", "warning");
-    }
-    else {
-      this.organizationSelect = this.organizationList.filter(item => item._id === this.organizationData.id);
+    } else {
+      this.organizationSelect = this.organizationList.filter(
+        (item) => item._id === this.organizationData.id
+      );
 
       if (this.selectedUser != null) {
         this.updateUser();
-      }
-      else {
+      } else {
         this.createUser(this.userData.email, this.userData.password);
       }
     }
@@ -59,25 +72,28 @@ export class RegisterUserPage implements OnInit {
       newUser.name = this.userData.name;
       newUser.email = this.userData.email;
       newUser.password = this.userData.password;
+      newUser.link = this.linkAlter;
+
       if (this.selectedUser.adm) {
         newUser.adm = true;
-      }
-      else {
+      } else {
         newUser.adm = false;
       }
 
-      newOrganization.id = this.organizationSelect[0]._id;;
+      newOrganization.id = this.organizationSelect[0]._id;
       newOrganization.corporateName = this.organizationSelect[0]._corporateName;
       newOrganization.linkRegister = this.organizationSelect[0]._linkRegister;
-      newOrganization.linkChange = this.organizationSelect[0]._linkChange;
+      // newOrganization.linkChange = this.organizationSelect[0]._linkChange;
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
 
       newUser.organization = Object.assign({}, newOrganization);
 
-      await this.dao.updateByReference(this.targetUser, this.selectedUser.id, newUser).then(() => {
-        this.presentToast("Sucesso", "Usuário atualizado!", "success");
-      })
+      await this.dao
+        .updateByReference(this.targetUser, this.selectedUser.id, newUser)
+        .then(() => {
+          this.presentToast("Sucesso", "Usuário atualizado!", "success");
+        });
     } catch (error) {
       this.presentToast("Erro", error.message, "danger");
     }
@@ -86,9 +102,12 @@ export class RegisterUserPage implements OnInit {
   async createUser(email: any, password: any) {
     this.uidUser = null;
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password).then((resp) => {
-        this.uidUser = resp.user.uid;
-      });
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((resp) => {
+          this.uidUser = resp.user.uid;
+        });
     } catch (error) {
       this.presentToast("Erro", error.message, "danger");
     }
@@ -106,11 +125,12 @@ export class RegisterUserPage implements OnInit {
       newUser.email = this.userData.email;
       newUser.password = this.userData.password;
       newUser.adm = false;
+      newUser.link = this.linkAlter;
 
       newOrganization.id = this.organizationSelect[0]._id;
       newOrganization.corporateName = this.organizationSelect[0]._corporateName;
       newOrganization.linkRegister = this.organizationSelect[0]._linkRegister;
-      newOrganization.linkChange = this.organizationSelect[0]._linkChange;
+      // newOrganization.linkChange = this.organizationSelect[0]._linkChange;
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
 
@@ -126,7 +146,12 @@ export class RegisterUserPage implements OnInit {
   }
 
   async presentToast(header: string, message: string, color: string) {
-    const toast = await this.toastCtrl.create({ header: header, message: message, color: color, duration: 2 * 1000 });
+    const toast = await this.toastCtrl.create({
+      header: header,
+      message: message,
+      color: color,
+      duration: 2 * 1000,
+    });
 
     toast.present();
   }
@@ -139,34 +164,58 @@ export class RegisterUserPage implements OnInit {
   clearForm() {
     this.userData = {};
     this.organizationData = {};
+    this.linkAlter = "";
   }
-
 
   ionViewWillEnter() {
     this.refreshOrganization();
   }
 
-  async ngOnInit() {
-    this.uidUser = await this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.uidUser != null) {
-      //Carrega as informações do usuário com base no ID do parâmetro
-      await this.dao.findByReference(this.targetUser, this.uidUser).subscribe(value => {
-        this.selectedUser = Object.assign(new User(), value.data());
-
-        let newOrganization = new Organization();
-
-        if (this.selectedUser != null) {
-          this.userData.name = this.selectedUser.name;
-          this.userData.email = this.selectedUser.email;
-          this.userData.password = this.selectedUser.password;
-
-          newOrganization = Object.assign(new Organization(), this.selectedUser.organization);
-
-          this.organizationData.id = newOrganization.id;
-          this.organizationData.corporateName = newOrganization.corporateName;
-        }
-      });
-    }
+  clickLinks() {
+    this.presentPopoverLinks();
   }
 
+  async presentPopoverLinks() {
+    const popLinks = this.popCtrl.create({
+      component: LinksUsersPage,
+      cssClass: "popover-edt",
+    });
+    (await popLinks).onDidDismiss().then((resp: any) => {
+      if (!resp) return;
+      if (!resp.data) return;
+
+      const link = resp.data;
+      if (link) this.linkAlter = link.gsx$link.$t;
+    });
+    return (await popLinks).present();
+  }
+
+  async ngOnInit() {
+    this.uidUser = await this.activatedRoute.snapshot.paramMap.get("id");
+    if (this.uidUser != null) {
+      //Carrega as informações do usuário com base no ID do parâmetro
+      await this.dao
+        .findByReference(this.targetUser, this.uidUser)
+        .subscribe((value) => {
+          this.selectedUser = Object.assign(new User(), value.data());
+
+          let newOrganization = new Organization();
+
+          if (this.selectedUser != null) {
+            this.userData.name = this.selectedUser.name;
+            this.userData.email = this.selectedUser.email;
+            this.userData.password = this.selectedUser.password;
+            this.linkAlter = this.selectedUser.link;
+
+            newOrganization = Object.assign(
+              new Organization(),
+              this.selectedUser.organization
+            );
+
+            this.organizationData.id = newOrganization.id;
+            this.organizationData.corporateName = newOrganization.corporateName;
+          }
+        });
+    }
+  }
 }

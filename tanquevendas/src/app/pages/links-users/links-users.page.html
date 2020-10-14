@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-radio-group *ngFor="let item of listinks">
+    <ion-radio-group *ngFor="let item of listLinks">
       <ion-item (click)="select(item)">
         <ion-label>{{item.gsx$nome.$t}}</ion-label>
         <ion-radio slot="start" [value]="item.gsx$link.$t"></ion-radio>
