@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment";
 
 @Injectable()
 export class GoogleProvider {
@@ -8,10 +7,10 @@ export class GoogleProvider {
 
   constructor(public http: HttpClient) {}
 
-  load() {
+  load(idSheet: string) {
     const url =
       "https://spreadsheets.google.com/feeds/list/" +
-      environment.googleSheets.sheetID +
+      idSheet +
       "/od6/public/values?alt=json";
 
     return this.http.get(url).toPromise();

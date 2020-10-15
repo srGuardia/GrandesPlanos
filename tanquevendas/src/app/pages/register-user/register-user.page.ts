@@ -6,7 +6,7 @@ import { User } from "src/app/model/user";
 import { Organization } from "src/app/model/organization";
 import { ActivatedRoute } from "@angular/router";
 import { PopoverController } from "@ionic/angular";
-import { LinksUsersPage } from "../links-users/links-users.page";
+import { LinkUserPage } from "../link-user/link-user.page";
 
 @Component({
   selector: "app-register-user",
@@ -169,6 +169,7 @@ export class RegisterUserPage implements OnInit {
 
   ionViewWillEnter() {
     this.refreshOrganization();
+    this.ngOnInit();
   }
 
   clickLinks() {
@@ -177,8 +178,9 @@ export class RegisterUserPage implements OnInit {
 
   async presentPopoverLinks() {
     const popLinks = this.popCtrl.create({
-      component: LinksUsersPage,
+      component: LinkUserPage,
       cssClass: "popover-edt",
+      mode: "md",
     });
     (await popLinks).onDidDismiss().then((resp: any) => {
       if (!resp) return;
@@ -191,7 +193,7 @@ export class RegisterUserPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.uidUser = await this.activatedRoute.snapshot.paramMap.get("id");
+    this.uidUser = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.uidUser != null) {
       //Carrega as informações do usuário com base no ID do parâmetro
       await this.dao

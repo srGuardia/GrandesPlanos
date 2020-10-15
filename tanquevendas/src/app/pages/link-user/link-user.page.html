@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Usuários"
+      type="text"
+      (ionChange)="searchNames($event)"
+      style="width: 100%"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="select(link)" *ngFor="let link of listLinks">
+      <ion-label>{{link.gsx$nome.$t}}</ion-label>
+      <ion-radio slot="start" [value]="link.gsx$link.$t"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

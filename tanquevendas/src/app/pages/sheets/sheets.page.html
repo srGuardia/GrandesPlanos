@@ -1,0 +1,76 @@
+<ion-header style="margin-top: 20px">
+  <ion-item>
+    <ion-label>Seja bem vindo <strong>{{userData.name}}</strong></ion-label>
+    <ion-icon (click)="resetLogin()" name="log-out-outline" color="medium">
+    </ion-icon>
+  </ion-item>
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Formulários"
+      type="text"
+      (input)="onSearchChange($event)"
+      style="padding-top: 0px; padding-bottom: 0px"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col
+        size="12"
+        sizeSm="12"
+        sizeMd="8"
+        sizeLg="6"
+        sizeXl="4"
+        style="margin: 0 auto"
+      >
+        <ion-button
+          expand="block"
+          color="primary"
+          (click)="goPage('/pages/register-sheet', null)"
+          fill="clear"
+        >
+          <ion-icon
+            style="
+              margin: 0px;
+              margin-right: 10px;
+              font-size: xx-large !important;
+            "
+            name="add"
+            slot="start"
+          >
+          </ion-icon
+          >Adicionar Formuário
+        </ion-button>
+
+        <ion-list style="padding-top: 0px" lines="none">
+          <ion-card
+            *ngFor="let formulario of listForms"
+            color="{{formulario._colorSheet}}"
+          >
+            <ion-card-header>
+              <ion-card-title style="display: flex; align-items: center">
+                <div class="title_form">{{formulario._nameSheet}}</div>
+
+                <div class="actions_form">
+                  <ion-icon
+                    name="create-outline"
+                    (click)="editForms(formulario)"
+                    style="font-size: 25px; margin-right: 5px"
+                  ></ion-icon>
+                  <ion-icon
+                    name="checkmark-outline"
+                    (click)="selectForm(formulario)"
+                    style="font-size: 25px"
+                  ></ion-icon>
+                </div>
+              </ion-card-title>
+              <ion-card-subtitle>{{formulario._description}}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

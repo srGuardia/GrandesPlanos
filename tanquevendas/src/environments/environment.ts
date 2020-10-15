@@ -14,10 +14,7 @@ export const environment = {
     appId: "1:136440818165:web:bf332c9312bf0643bb18bc",
   },
   googleSheets: {
-    sheetID: "1Yb-GLAUZm5xGqRHYIuv05HO7mawZe8981aZdK1j716E",
-    sheetRicardoOri: "1mqkwsIyx93opFTAa2PRnPjd-zvql2QWHqzb2EcxBP2k",
-    sheetIDDemo: "1F1CjUlylUX_0WiO0LXLQ4TYPRrgMKT3aL2DMAgn79NQ",
-    sheetIDDemo2: "2PACX-1vTENWQssRLnM4SC8kyGltybOaujwZGClZjPBw01mM-gUEJriH1N0Hbx8sW3pSIWwDr8ru1W_l6LaSXB",
+    sheetID: "",
   },
 };
 

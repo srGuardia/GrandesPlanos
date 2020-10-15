@@ -32,5 +32,12 @@ export class Global {
             display: true,
             showHeader: false
         },
+        {
+            title: 'Formulários',
+            url: 'sheets',
+            icon: 'clipboard-outline',
+            display: true,
+            showHeader: false
+        },
     ];
 }

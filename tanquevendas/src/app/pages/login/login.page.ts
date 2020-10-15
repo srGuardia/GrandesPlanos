@@ -44,10 +44,11 @@ export class LoginPage implements OnInit {
 
       if (this.userData.adm) {
         this.navigatePages("users");
-        this.global.appPages[2].display = false;
+        // this.global.appPages[2].display = false;
       } else {
-        this.global.appPages[0].display = false;
-        this.global.appPages[1].display = false;
+        // this.global.appPages[0].display = false;
+        // this.global.appPages[1].display = false;
+        // this.global.appPages[3].display = false;
         this.navigatePages("home");
       }
 

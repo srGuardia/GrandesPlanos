@@ -39,12 +39,13 @@ export class HomePage implements OnInit {
         this.userData.link = dados._link;
         this.organizationData = dados._organization;
 
-        if (this.userData.adm) {
-          this.global.appPages[2].display = false;
-        } else {
-          this.global.appPages[0].display = false;
-          this.global.appPages[1].display = false;
-        }
+        // if (this.userData.adm) {
+        //   this.global.appPages[2].display = false;
+        // } else {
+        //   this.global.appPages[0].display = false;
+        //   this.global.appPages[1].display = false;
+        //   this.global.appPages[3].display = false;
+        // }
       }
     });
   }
