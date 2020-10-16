@@ -37,9 +37,16 @@
 ### Vendedor (criado pelo Administrador)
 > O Vendedor assim que se autenticar na aplicação apenas terá uma tela (Home), com as seguintes funcionalidades:
 
+<img src="https://github.com/srGuardia/28962-GrandesPlanos/blob/main/imagens/user_normal.png?raw=true"></img>
+
 1. Cadastrar uma possível **Prospect**.
 2. Acessar o site Grandes **Planos**.
 3. Acessar a Planilha de **Tanque de Vendas**.
 4. Acessar o canal do Youtube da **Grande Planos**.
 5. Acessar a Planilha de **Forecast**.
 6. Alterar os dados dos **Prospect** referente ao Vendedor autenticado na aplicação.
+
+<img src="https://github.com/srGuardia/28962-GrandesPlanos/blob/main/imagens/search_prosp.png?raw=true"></img>
+<img src="https://github.com/srGuardia/28962-GrandesPlanos/blob/main/imagens/alter_prosp.png?raw=true"></img>
+
+> Ao selecionar a funcionalidade **Alterar** será retornado todos os **Prospect** referente ao Vendedor autenticado, também é possível fazer a busca pelo **Nome** e ao selecionar a pessoa desejada, será automaticamente redirecionado ao formulário referente aos dados do mesmo.
