@@ -33,3 +33,13 @@
 <img src="https://github.com/srGuardia/28962-GrandesPlanos/blob/main/imagens/user_add2.png?raw=true"></img>
 
 > Realiza o Cadastro e Edição do usuário (Vendedor), vincula ele a uma Empresa e ao Formulário (Planilha) de integração.
+
+### Vendedor (criado pelo Administrador)
+> O Vendedor assim que se autenticar na aplicação apenas terá uma tela (Home), com as seguintes funcionalidades:
+
+1. Cadastrar uma possível **Prospect**.
+2. Acessar o site Grandes **Planos**.
+3. Acessar a Planilha de **Tanque de Vendas**.
+4. Acessar o canal do Youtube da **Grande Planos**.
+5. Acessar a Planilha de **Forecast**.
+6. Alterar os dados dos **Prospect** referente ao Vendedor autenticado na aplicação.
