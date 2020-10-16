@@ -24,7 +24,7 @@ export class RegisterOrganizationPage implements OnInit {
 
   onSave() {
     if (this.organizationData.corporateName == null) {
-      this.presentToast("Validação", "Campos obrigatórios", "warning");
+      this.presentToast("Validação", "Campo obrigatório", "warning");
     } else {
       if (this.selectOrganization != null) {
         this.updateOrganization();
@@ -40,9 +40,9 @@ export class RegisterOrganizationPage implements OnInit {
 
       newOrganization.id = this.selectOrganization.id;
       newOrganization.corporateName = this.organizationData.corporateName;
-      newOrganization.linkRegister = this.organizationData.linkRegister;
-      newOrganization.linkForecast = this.organizationData.linkForecast;
-      newOrganization.linkSales = this.organizationData.linkSales;
+      newOrganization.linkRegister = this.organizationData.linkRegister ? this.organizationData.linkRegister : "";
+      newOrganization.linkForecast = this.organizationData.linkForecast ? this.organizationData.linkForecast : "";
+      newOrganization.linkSales = this.organizationData.linkSales ? this.organizationData.linkSales: "";
 
       await this.dao
         .updateByReference(
@@ -63,9 +63,9 @@ export class RegisterOrganizationPage implements OnInit {
       let newOrganization = new Organization();
 
       newOrganization.corporateName = this.organizationData.corporateName;
-      newOrganization.linkRegister = this.organizationData.linkRegister;
-      newOrganization.linkForecast = this.organizationData.linkForecast;
-      newOrganization.linkSales = this.organizationData.linkSales;
+      newOrganization.linkRegister = this.organizationData.linkRegister ? this.organizationData.linkRegister : "";
+      newOrganization.linkForecast = this.organizationData.linkForecast ? this.organizationData.linkForecast : "";
+      newOrganization.linkSales = this.organizationData.linkSales ? this.organizationData.linkSales: "";
 
       this.dao.addNew(this.target, newOrganization).then(() => {
         this.presentToast("Sucesso", "Empresa registrada!", "success");
