@@ -19,7 +19,7 @@ export class Global {
             showHeader: false
         },
         {
-            title: 'Organizações',
+            title: 'Empresas',
             url: 'organizations',
             icon: 'business-outline',
             display: true,

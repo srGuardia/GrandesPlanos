@@ -25,25 +25,6 @@ export class SheetsPage implements OnInit {
     private toastCtrl: ToastController
   ) {}
 
-  validStatus(uid) {
-    debugger;
-    this.storage.get("formActive").then((dados) => {
-      if (dados._id == uid) {
-        this.checked = true;
-      } else {
-        this.storage.remove("formActive");
-      }
-    });
-  }
-
-  selectForm(obj: any) {
-    this.storage.set("formActive", obj);
-
-    let message = obj._nameSheet;
-    
-    this.presentToast("", `Formulário ${message} selecionado como principal`, "success");
-  }
-
   resetLogin() {
     this.storage.clear();
     this.navCtrl.navigateBack("login");
@@ -110,14 +91,6 @@ export class SheetsPage implements OnInit {
         this.userData.id = dados._id;
         this.userData.name = dados._name;
         this.userData.adm = dados._adm;
-
-        // if (this.userData.adm) {
-        //   this.global.appPages[2].display = false;
-        // } else {
-        //   this.global.appPages[0].display = false;
-        //   this.global.appPages[1].display = false;
-        //   this.global.appPages[3].display = false;
-        // }
       }
     });
   }

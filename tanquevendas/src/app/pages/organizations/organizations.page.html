@@ -1,4 +1,4 @@
-<ion-header style="margin-top: 20px;">
+<ion-header style="margin-top: 20px">
   <ion-item>
     <ion-label>Seja bem vindo <strong>{{userData.name}}</strong></ion-label>
     <ion-icon (click)="resetLogin()" name="log-out-outline" color="medium">
@@ -40,16 +40,19 @@
             slot="start"
           >
           </ion-icon
-          >Adicionar Organização
+          >Adicionar Empresa
         </ion-button>
 
         <ion-list style="padding-top: 0px" lines="none">
           <ion-card style="padding: 0px" *ngFor="let item of listOrganization">
             <ion-card-content>
               <p style="display: flex; align-items: center">
-                Corporação: <strong>{{item._corporateName}}</strong>
+                Empresa:
+                <strong style="margin-left: 5px"
+                  >{{item._corporateName}}</strong
+                >
                 <ion-icon
-                  name="pencil-outline"
+                  name="create-outline"
                   (click)="editRegister(item)"
                   color="dark"
                   style="font-size: 25px; margin-left: 5px"

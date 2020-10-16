@@ -23,20 +23,22 @@ export class LinkUserPage implements OnInit {
   ) {}
 
   async refreshLinksUsers() {
-    this.storage.get("formActive").then((resp) => {
-      if (resp == null) {
-        this.presentToast(
-          "",
-          "Escolha um formulário como principal",
-          "warning"
+    this.storage.get("userData").then((dados) => {
+      this.googleProvider.load(dados._sheet._refSheet).then((sheetRef: any) => {
+        const obj: any = sheetRef.feed;
+        this.listLinks = obj.entry;
+
+        let arrayFilter = [];
+
+        arrayFilter = this.listLinks.filter(
+          (link) =>
+            link.gsx$vendedor.$t.toLowerCase() == dados._name.toLowerCase()
         );
-      } else {
-        this.display = "block";
-        this.googleProvider.load(resp._refSheet).then((dados: any) => {
-          const obj: any = dados.feed;
-          this.listLinks = obj.entry;
-        });
-      }
+
+        if (arrayFilter.length > 0) {
+          this.listLinks = [...arrayFilter];
+        }
+      });
     });
   }
 

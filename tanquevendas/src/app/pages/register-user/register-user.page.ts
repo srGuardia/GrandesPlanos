@@ -7,6 +7,7 @@ import { Organization } from "src/app/model/organization";
 import { ActivatedRoute } from "@angular/router";
 import { PopoverController } from "@ionic/angular";
 import { LinkUserPage } from "../link-user/link-user.page";
+import { Sheet } from 'src/app/model/sheet';
 
 @Component({
   selector: "app-register-user",
@@ -16,10 +17,14 @@ import { LinkUserPage } from "../link-user/link-user.page";
 export class RegisterUserPage implements OnInit {
   private userData: any = {};
   private organizationData: any = {};
+  private sheetData: any = {};
   private organizationList = [];
+  private sheetsList = [];
   private target = "organization";
   private targetUser = "user";
+  private targetSheets = "sheets";
   private organizationSelect: any = {};
+  private sheetSelect: any = {};
   private uidUser: string = null;
   private selectedUser: User = null;
   private linkAlter: String = null;
@@ -42,17 +47,32 @@ export class RegisterUserPage implements OnInit {
     });
   }
 
+  async refreshSheets() {
+    this.sheetsList = [];
+    await this.dao.listAll(this.targetSheets).subscribe((value) => {
+      value.forEach((result) => {
+        let object = result.data();
+        this.sheetsList.push(object);
+      });
+    });
+  }
+
   onSave() {
     if (
       this.userData.name == null ||
       this.userData.password == null ||
       this.userData.email == null ||
-      this.organizationData.id == null
+      this.organizationData.id == null ||
+      this.sheetData.id == null
     ) {
       this.presentToast("Validação", "Campos obrigatórios", "warning");
     } else {
       this.organizationSelect = this.organizationList.filter(
         (item) => item._id === this.organizationData.id
+      );
+      
+      this.sheetSelect = this.sheetsList.filter(
+        (item) => item._id === this.sheetData.id
       );
 
       if (this.selectedUser != null) {
@@ -67,6 +87,7 @@ export class RegisterUserPage implements OnInit {
     try {
       let newUser = new User();
       let newOrganization = new Organization();
+      let newSheet = new Sheet();
 
       newUser.id = this.selectedUser.id;
       newUser.name = this.userData.name;
@@ -83,11 +104,17 @@ export class RegisterUserPage implements OnInit {
       newOrganization.id = this.organizationSelect[0]._id;
       newOrganization.corporateName = this.organizationSelect[0]._corporateName;
       newOrganization.linkRegister = this.organizationSelect[0]._linkRegister;
-      // newOrganization.linkChange = this.organizationSelect[0]._linkChange;
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
 
+      newSheet.id = this.sheetSelect[0]._id;
+      newSheet.nameSheet = this.sheetSelect[0]._nameSheet;
+      newSheet.description = this.sheetSelect[0]._description;
+      newSheet.colorSheet = this.sheetSelect[0]._colorSheet;
+      newSheet.refSheet = this.sheetSelect[0]._refSheet;
+
       newUser.organization = Object.assign({}, newOrganization);
+      newUser.sheet = Object.assign({}, newSheet);
 
       await this.dao
         .updateByReference(this.targetUser, this.selectedUser.id, newUser)
@@ -119,6 +146,7 @@ export class RegisterUserPage implements OnInit {
     try {
       let newUser = new User();
       let newOrganization = new Organization();
+      let newSheet = new Sheet();
 
       newUser.id = uid;
       newUser.name = this.userData.name;
@@ -130,11 +158,17 @@ export class RegisterUserPage implements OnInit {
       newOrganization.id = this.organizationSelect[0]._id;
       newOrganization.corporateName = this.organizationSelect[0]._corporateName;
       newOrganization.linkRegister = this.organizationSelect[0]._linkRegister;
-      // newOrganization.linkChange = this.organizationSelect[0]._linkChange;
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
 
+      newSheet.id = this.sheetSelect[0]._id;
+      newSheet.nameSheet = this.sheetSelect[0]._nameSheet;
+      newSheet.description = this.sheetSelect[0]._description;
+      newSheet.colorSheet = this.sheetSelect[0]._colorSheet;
+      newSheet.refSheet = this.sheetSelect[0]._refSheet;
+
       newUser.organization = Object.assign({}, newOrganization);
+      newUser.sheet = Object.assign({}, newSheet);
 
       this.dao.addNew(this.targetUser, newUser).then((dados) => {
         this.presentToast("Sucesso", "Usuário registrado!", "success");
@@ -163,12 +197,11 @@ export class RegisterUserPage implements OnInit {
 
   clearForm() {
     this.userData = {};
-    this.organizationData = {};
-    this.linkAlter = "";
   }
 
   ionViewWillEnter() {
     this.refreshOrganization();
+    this.refreshSheets();
     this.ngOnInit();
   }
 
@@ -202,6 +235,7 @@ export class RegisterUserPage implements OnInit {
           this.selectedUser = Object.assign(new User(), value.data());
 
           let newOrganization = new Organization();
+          let newSheet = new Sheet();
 
           if (this.selectedUser != null) {
             this.userData.name = this.selectedUser.name;
@@ -214,8 +248,16 @@ export class RegisterUserPage implements OnInit {
               this.selectedUser.organization
             );
 
+            newSheet = Object.assign(
+              new Sheet(),
+              this.selectedUser.sheet
+            );
+
             this.organizationData.id = newOrganization.id;
             this.organizationData.corporateName = newOrganization.corporateName;
+
+            this.sheetData.id = newSheet.id;
+            this.sheetData.nameSheet = newSheet.nameSheet;
           }
         });
     }

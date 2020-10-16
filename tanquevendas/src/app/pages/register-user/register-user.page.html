@@ -33,8 +33,12 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Organização</ion-label>
-        <ion-select placeholder="Selecione" [(ngModel)]="organizationData.id">
+        <ion-label position="stacked">Empresa</ion-label>
+        <ion-select
+          placeholder="Selecione"
+          [(ngModel)]="organizationData.id"
+          required="true"
+        >
           <ion-select-option
             *ngFor="let item of organizationList"
             value="{{item._id}}"
@@ -43,10 +47,25 @@
         </ion-select>
       </ion-item>
 
-      <ion-item style="margin-bottom: 10px" (click)="clickLinks()">
+      <ion-item>
+        <ion-label position="stacked">Formulário</ion-label>
+        <ion-select
+          placeholder="Selecione"
+          [(ngModel)]="sheetData.id"
+          required="true"
+        >
+          <ion-select-option
+            *ngFor="let item of sheetsList"
+            value="{{item._id}}"
+            >{{item._nameSheet}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <!-- <ion-item style="margin-bottom: 10px" (click)="clickLinks()">
         <ion-label position="stacked">Link de Cadastro</ion-label>
         <ion-input type="url" readonly="true" [(ngModel)]="linkAlter"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
       <ion-button (click)="onSave()" expand="block"> Salvar </ion-button>
       <ion-button (click)="returnPage()" expand="block" color="danger">

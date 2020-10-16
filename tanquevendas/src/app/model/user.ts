@@ -1,4 +1,5 @@
 import { Organization } from "./organization";
+import { Sheet } from './sheet';
 
 export class User {
   private _id: String;
@@ -8,6 +9,7 @@ export class User {
   private _organization: Organization;
   private _adm: Boolean;
   private _link: String;
+  private _sheet: Sheet;
 
   constructor(
     id?: String,
@@ -16,7 +18,8 @@ export class User {
     password?: String,
     organization?: Organization,
     adm?: Boolean,
-    link?: String
+    link?: String,
+    sheet?: Sheet
   ) {
     this._id = id;
     this._name = name;
@@ -25,6 +28,7 @@ export class User {
     this._organization = organization;
     this._adm = adm;
     this._link = link;
+    this._sheet = sheet;
   }
 
   get id(): String {
@@ -80,5 +84,13 @@ export class User {
 
   set link(value: String) {
     this._link = value;
+  }
+
+  get sheet(): Sheet {
+    return this._sheet;
+  }
+
+  set sheet(value: Sheet) {
+    this._sheet = value;
   }
 }

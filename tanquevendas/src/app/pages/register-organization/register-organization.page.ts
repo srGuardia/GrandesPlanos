@@ -41,7 +41,6 @@ export class RegisterOrganizationPage implements OnInit {
       newOrganization.id = this.selectOrganization.id;
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister;
-      // newOrganization.linkChange = this.organizationData.linkChange;
       newOrganization.linkForecast = this.organizationData.linkForecast;
       newOrganization.linkSales = this.organizationData.linkSales;
 
@@ -52,7 +51,7 @@ export class RegisterOrganizationPage implements OnInit {
           newOrganization
         )
         .then(() => {
-          this.presentToast("Sucesso", "Organização atualizada!", "success");
+          this.presentToast("Sucesso", "Empresa atualizada!", "success");
         });
     } catch (error) {
       this.presentToast("Erro", error.message, "danger");
@@ -65,12 +64,11 @@ export class RegisterOrganizationPage implements OnInit {
 
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister;
-      // newOrganization.linkChange = this.organizationData.linkChange;
       newOrganization.linkForecast = this.organizationData.linkForecast;
       newOrganization.linkSales = this.organizationData.linkSales;
 
       this.dao.addNew(this.target, newOrganization).then(() => {
-        this.presentToast("Sucesso", "Organização registrada!", "success");
+        this.presentToast("Sucesso", "Empresa registrada!", "success");
         this.clearForm();
       });
     } catch (error) {
@@ -116,7 +114,6 @@ export class RegisterOrganizationPage implements OnInit {
 
           if (this.selectOrganization != null) {
             this.organizationData.corporateName = this.selectOrganization.corporateName;
-            // this.organizationData.linkChange = this.selectOrganization.linkChange;
             this.organizationData.linkForecast = this.selectOrganization.linkForecast;
             this.organizationData.linkRegister = this.selectOrganization.linkRegister;
             this.organizationData.linkSales = this.selectOrganization.linkSales;

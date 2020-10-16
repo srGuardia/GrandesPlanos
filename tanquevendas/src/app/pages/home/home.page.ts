@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { NavController, PopoverController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 import { Global } from "src/app/global";
 import { Organization } from "src/app/model/organization";
 import { User } from "src/app/model/user";
 import { DefaultDAO } from "src/dao/defaultDAO";
+import { LinkUserPage } from "../link-user/link-user.page";
 
 @Component({
   selector: "app-home",
@@ -15,18 +16,45 @@ import { DefaultDAO } from "src/dao/defaultDAO";
 export class HomePage implements OnInit {
   private userData: any = {};
   private organizationData: any = {};
+  private linkAlter: String;
+  private sheetData: any = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private dao: DefaultDAO,
     private storage: Storage,
     private global: Global,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private popCtrl: PopoverController
   ) {}
 
   resetLogin() {
     this.storage.clear();
     this.navCtrl.navigateBack("login");
+  }
+
+  clickLinks() {
+    this.presentPopoverLinks();
+  }
+
+  async presentPopoverLinks() {
+    const popLinks = this.popCtrl.create({
+      component: LinkUserPage,
+      cssClass: "popover-edt",
+      mode: "md",
+    });
+    (await popLinks).onDidDismiss().then((resp: any) => {
+      if (!resp) return;
+      if (!resp.data) return;
+
+      const link = resp.data;
+      if (link) {
+        this.linkAlter = link.gsx$link.$t;
+
+        window.open(`${this.linkAlter}`);
+      }
+    });
+    return (await popLinks).present();
   }
 
   async ngOnInit() {
@@ -38,14 +66,6 @@ export class HomePage implements OnInit {
         this.userData.email = dados._email;
         this.userData.link = dados._link;
         this.organizationData = dados._organization;
-
-        // if (this.userData.adm) {
-        //   this.global.appPages[2].display = false;
-        // } else {
-        //   this.global.appPages[0].display = false;
-        //   this.global.appPages[1].display = false;
-        //   this.global.appPages[3].display = false;
-        // }
       }
     });
   }

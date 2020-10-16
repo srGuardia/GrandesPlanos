@@ -1,19 +1,9 @@
 export class Organization {
     private _id: String;
     private _corporateName: String;
-    // private _linkChange: String;
     private _linkForecast: String;
     private _linkRegister: String;
     private _linkSales: String;
-
-    // constructor(id?: String, corporateName?: String, linkChange?: String, linkForecast?: String, linkRegister?: String, linkSales?: String) {
-    //     this._id = id;
-    //     this._corporateName = corporateName;
-    //     // this._linkChange = linkChange;
-    //     this._linkForecast = linkForecast;
-    //     this._linkRegister = linkRegister;
-    //     this._linkSales = linkSales;
-    // }
 
     constructor(id?: String, corporateName?: String, linkForecast?: String, linkRegister?: String, linkSales?: String) {
         this._id = id;
@@ -38,14 +28,6 @@ export class Organization {
     set corporateName(value: String) {
         this._corporateName = value
     }
-
-    // get linkChange(): String {
-    //     return this._linkChange;
-    // }
-
-    // set linkChange(value: String) {
-    //     this._linkChange = value
-    // }
 
     get linkForecast(): String {
         return this._linkForecast;

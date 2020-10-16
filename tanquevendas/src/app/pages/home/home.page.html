@@ -20,9 +20,11 @@
         <ion-list style="padding-top: 0px" lines="none">
           <ion-card style="padding: 0px">
             <ion-card-content>
-              <p>Nome: {{userData.name}}</p>
-              <p>E-mail: {{userData.email}}</p>
-              <p>Corporação: {{organizationData._corporateName}}</p>
+              <p>Nome: <strong>{{userData.name}}</strong></p>
+              <p>E-mail: <strong>{{userData.email}}</strong></p>
+              <p>
+                Empresa: <strong>{{organizationData._corporateName}}</strong>
+              </p>
 
               <ion-grid>
                 <ion-row>
@@ -101,10 +103,9 @@
 
                   <ion-col size="6">
                     <ion-button
-                      href="{{userData.link}}"
+                      (click)="clickLinks()"
                       style="width: 100%; height: 50px"
                       color="dark"
-                      disabled="{{!userData.link}}"
                     >
                       <ion-icon
                         name="pencil-outline"
