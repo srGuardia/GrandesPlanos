@@ -89,7 +89,7 @@ export class SheetsPage implements OnInit {
     await this.storage.get("userData").then((dados) => {
       if (dados != null) {
         this.userData.id = dados._id;
-        this.userData.name = dados._name;
+        this.userData.name = dados._name ? dados._name : "Administrador";
         this.userData.adm = dados._adm;
       }
     });

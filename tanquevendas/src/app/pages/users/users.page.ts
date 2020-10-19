@@ -32,10 +32,17 @@ export class UsersPage implements OnInit {
 
   async refreshUserList() {
     this.userList = [];
+    let newList = [];
     await this.dao.listAll(this.target).subscribe((value) => {
       value.forEach((result) => {
         let object = result.data();
-        this.userList.push(object);
+        newList.push(object);
+        newList.forEach((res) => {
+          if (res._adm == true) {
+            newList.splice(1, 1);
+          }
+        });
+        this.userList = newList;
       });
     });
   }
@@ -73,7 +80,7 @@ export class UsersPage implements OnInit {
     await this.storage.get("userData").then((dados) => {
       if (dados != null) {
         this.userData.id = dados._id;
-        this.userData.name = dados._name;
+        this.userData.name = dados._name ? dados._name : "Administrador";
         this.userData.adm = dados._adm;
       }
     });
