@@ -15,7 +15,7 @@ import { ObjectFactory } from 'src/app/util/object-factory';
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  private userLogin: any = {};
+  public userLogin: any = {};
   public userData: User;
   public usuarioLogado = false;
   public userID: any = null;

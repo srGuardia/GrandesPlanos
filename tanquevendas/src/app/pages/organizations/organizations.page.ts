@@ -10,7 +10,7 @@ import { DefaultDAO } from "src/dao/defaultDAO";
   styleUrls: ["./organizations.page.scss"],
 })
 export class OrganizationsPage implements OnInit {
-  private listOrganization: any[] = [];
+  public listOrganization: any[] = [];
   private target = "organization";
   public userData: any = {};
 

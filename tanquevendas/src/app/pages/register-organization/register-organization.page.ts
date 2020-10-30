@@ -10,7 +10,7 @@ import { DefaultDAO } from "src/dao/defaultDAO";
   styleUrls: ["./register-organization.page.scss"],
 })
 export class RegisterOrganizationPage implements OnInit {
-  private organizationData: any = {};
+  public organizationData: any = {};
   private target = "organization";
   private uidOrganization: string = null;
   private selectOrganization: Organization = null;

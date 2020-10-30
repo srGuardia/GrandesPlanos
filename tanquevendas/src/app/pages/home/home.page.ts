@@ -14,8 +14,8 @@ import { LinkUserPage } from "../link-user/link-user.page";
   styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit {
-  private userData: any = {};
-  private organizationData: any = {};
+  public userData: any = {};
+  public organizationData: any = {};
   private linkAlter: String;
   private sheetData: any = {};
 

@@ -15,11 +15,11 @@ import { Sheet } from 'src/app/model/sheet';
   styleUrls: ["./register-user.page.scss"],
 })
 export class RegisterUserPage implements OnInit {
-  private userData: any = {};
-  private organizationData: any = {};
-  private sheetData: any = {};
-  private organizationList = [];
-  private sheetsList = [];
+  public userData: any = {};
+  public organizationData: any = {};
+  public sheetData: any = {};
+  public organizationList = [];
+  public sheetsList = [];
   private target = "organization";
   private targetUser = "user";
   private targetSheets = "sheets";

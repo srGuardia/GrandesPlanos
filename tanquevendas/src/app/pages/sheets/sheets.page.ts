@@ -10,10 +10,10 @@ import { DefaultDAO } from "src/dao/defaultDAO";
   styleUrls: ["./sheets.page.scss"],
 })
 export class SheetsPage implements OnInit {
-  private listForms: any[] = [];
+  public listForms: any[] = [];
   private target: string = "sheets";
 
-  private userData: any = {};
+  public userData: any = {};
 
   private checked: Boolean = false;
 

@@ -13,7 +13,7 @@ export class RegisterSheetPage implements OnInit {
   private uidSheet = null;
   private selectSheet: Sheet = null;
   private target: string = "sheets";
-  private sheetData: any = {};
+  public sheetData: any = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,

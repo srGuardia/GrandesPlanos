@@ -10,7 +10,7 @@ import { GoogleProvider } from "src/app/providers/google";
   styleUrls: ["./link-user.page.scss"],
 })
 export class LinkUserPage implements OnInit {
-  private listLinks: any[] = [];
+  public listLinks: any[] = [];
   private userData: any = {};
   private display: string = "none";
 
