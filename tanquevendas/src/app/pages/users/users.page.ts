@@ -32,19 +32,18 @@ export class UsersPage implements OnInit {
 
   async refreshUserList() {
     this.userList = [];
-    let newList = [];
-    await this.dao.listAll(this.target).subscribe((value) => {
-      value.forEach((result) => {
-        let object = result.data();
-        newList.push(object);
-        newList.forEach((res) => {
-          if (res._adm == true) {
-            newList.splice(1, 1);
-          }
+    await this.dao
+      .listAllByAttribute(this.target, {
+        attribute: "_adm",
+        operator: "==",
+        value: false,
+      })
+      .then((values) => {
+        values.forEach((result) => {
+          let object = result.data();
+          this.userList.push(object);
         });
-        this.userList = newList;
       });
-    });
   }
 
   editRegister(item) {
