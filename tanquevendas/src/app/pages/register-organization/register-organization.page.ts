@@ -15,6 +15,9 @@ export class RegisterOrganizationPage implements OnInit {
   private uidOrganization: string = null;
   private selectOrganization: Organization = null;
 
+  public activeActions: Boolean = false;
+  public requiredActions: Boolean = true;
+
   constructor(
     private navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -23,7 +26,14 @@ export class RegisterOrganizationPage implements OnInit {
   ) {}
 
   onSave() {
-    if (this.organizationData.corporateName == null) {
+    if (
+      this.organizationData.corporateName == null ||
+      (this.activeActions == true &&
+        this.organizationData.firstActionName == null &&
+        this.organizationData.firstActionLink == null) ||
+      (this.organizationData.secondActionName == null &&
+        this.organizationData.secondActionName == null)
+    ) {
       this.presentToast("Validação", "Campo obrigatório", "warning");
     } else {
       if (this.selectOrganization != null) {
@@ -40,9 +50,23 @@ export class RegisterOrganizationPage implements OnInit {
 
       newOrganization.id = this.selectOrganization.id;
       newOrganization.corporateName = this.organizationData.corporateName;
-      newOrganization.linkRegister = this.organizationData.linkRegister ? this.organizationData.linkRegister : "";
-      newOrganization.linkForecast = this.organizationData.linkForecast ? this.organizationData.linkForecast : "";
-      newOrganization.linkSales = this.organizationData.linkSales ? this.organizationData.linkSales: "";
+      newOrganization.linkRegister = this.organizationData.linkRegister || "";
+      newOrganization.linkForecast = this.organizationData.linkForecast || "";
+      newOrganization.linkSales = this.organizationData.linkSales || "";
+
+      if (this.activeActions) {
+        newOrganization.active = this.organizationData.active;
+        newOrganization.firstActionName = this.organizationData.firstActionName;
+        newOrganization.firstActionLink = this.organizationData.firstActionLink;
+        newOrganization.secondActionName = this.organizationData.secondActionName;
+        newOrganization.secondActionLink = this.organizationData.secondActionLink;
+      } else {
+        newOrganization.active = false;
+        newOrganization.firstActionName = "";
+        newOrganization.firstActionLink = "";
+        newOrganization.secondActionName = "";
+        newOrganization.secondActionLink = "";
+      }
 
       await this.dao
         .updateByReference(
@@ -52,6 +76,7 @@ export class RegisterOrganizationPage implements OnInit {
         )
         .then(() => {
           this.presentToast("Sucesso", "Empresa atualizada!", "success");
+          this.ngOnInit();
         });
     } catch (error) {
       this.presentToast("Erro", error.message, "danger");
@@ -63,9 +88,29 @@ export class RegisterOrganizationPage implements OnInit {
       let newOrganization = new Organization();
 
       newOrganization.corporateName = this.organizationData.corporateName;
-      newOrganization.linkRegister = this.organizationData.linkRegister ? this.organizationData.linkRegister : "";
-      newOrganization.linkForecast = this.organizationData.linkForecast ? this.organizationData.linkForecast : "";
-      newOrganization.linkSales = this.organizationData.linkSales ? this.organizationData.linkSales: "";
+      newOrganization.linkRegister = this.organizationData.linkRegister
+        ? this.organizationData.linkRegister
+        : "";
+      newOrganization.linkForecast = this.organizationData.linkForecast
+        ? this.organizationData.linkForecast
+        : "";
+      newOrganization.linkSales = this.organizationData.linkSales
+        ? this.organizationData.linkSales
+        : "";
+
+      if (this.activeActions) {
+        newOrganization.active = this.organizationData.active;
+        newOrganization.firstActionName = this.organizationData.firstActionName;
+        newOrganization.firstActionLink = this.organizationData.firstActionLink;
+        newOrganization.secondActionName = this.organizationData.secondActionName;
+        newOrganization.secondActionLink = this.organizationData.secondActionLink;
+      } else {
+        newOrganization.active = false;
+        newOrganization.firstActionName = "";
+        newOrganization.firstActionLink = "";
+        newOrganization.secondActionName = "";
+        newOrganization.secondActionLink = "";
+      }
 
       this.dao.addNew(this.target, newOrganization).then(() => {
         this.presentToast("Sucesso", "Empresa registrada!", "success");
@@ -100,6 +145,11 @@ export class RegisterOrganizationPage implements OnInit {
     this.ngOnInit();
   }
 
+  handleActions(event) {
+    let value = event.target.checked;
+    this.activeActions = value;
+  }
+
   async ngOnInit() {
     this.uidOrganization = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.uidOrganization != null) {
@@ -113,10 +163,16 @@ export class RegisterOrganizationPage implements OnInit {
           );
 
           if (this.selectOrganization != null) {
+            this.activeActions = this.selectOrganization.active;
             this.organizationData.corporateName = this.selectOrganization.corporateName;
             this.organizationData.linkForecast = this.selectOrganization.linkForecast;
             this.organizationData.linkRegister = this.selectOrganization.linkRegister;
             this.organizationData.linkSales = this.selectOrganization.linkSales;
+            this.organizationData.active = this.selectOrganization.active;
+            this.organizationData.firstActionName = this.selectOrganization.firstActionName;
+            this.organizationData.firstActionLink = this.selectOrganization.firstActionLink;
+            this.organizationData.secondActionName = this.selectOrganization.secondActionName;
+            this.organizationData.secondActionLink = this.selectOrganization.secondActionLink;
           }
         });
     }

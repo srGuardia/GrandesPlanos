@@ -23,31 +23,81 @@
       <ion-item>
         <ion-label position="stacked">Cadastrar</ion-label>
         <ion-input
-          type="text"
+          type="url"
           [(ngModel)]="organizationData.linkRegister"
         ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Tanque de Vendas</ion-label>
         <ion-input
-          type="text"
+          type="url"
           [(ngModel)]="organizationData.linkSales"
         ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Forecast</ion-label>
         <ion-input
-          type="text"
+          type="url"
           [(ngModel)]="organizationData.linkForecast"
         ></ion-input>
       </ion-item>
-      <!-- <ion-item>
-        <ion-label position="stacked">Alterar</ion-label>
-        <ion-input
-          type="text"
-          [(ngModel)]="organizationData.linkChange"
-        ></ion-input>
-      </ion-item> -->
+
+      <ion-item>
+        <ion-label position="stacked">Ações Personalizadas</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="organizationData.active"
+          (ionChange)="handleActions($event)"
+        ></ion-toggle>
+      </ion-item>
+
+      <ion-grid [hidden]="!activeActions">
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">Ação 1</ion-label>
+              <ion-input
+                type="text"
+                [(ngModel)]="organizationData.firstActionName"
+                [required]="requiredActions"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">URL Personalizada</ion-label>
+              <ion-input
+                type="url"
+                [(ngModel)]="organizationData.firstActionLink"
+                [required]="requiredActions"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">Ação 2</ion-label>
+              <ion-input
+                type="text"
+                [(ngModel)]="organizationData.secondActionName"
+                [required]="requiredActions"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">URL Personalizada</ion-label>
+              <ion-input
+                type="url"
+                [(ngModel)]="organizationData.secondActionLink"
+                [required]="requiredActions"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
       <ion-button (click)="onSave()" expand="block"> Salvar </ion-button>
       <ion-button (click)="returnPage()" expand="block" color="danger">
