@@ -44,8 +44,8 @@ export class DefaultDAO extends DefaultDAOInterface {
         return this.firestore.doc<any>(target + '/' + reference).ref.set(Object.assign({}, object));
     }
 
-    listAll(target: string, limit?: Number): Observable<firebase.firestore.QuerySnapshot> {
-        return this.firestore.collection<any>(target).get();
+    listAll(target: string, limit?: Number): Promise<firebase.firestore.QuerySnapshot> {
+        return this.firestore.collection(target).ref.get();
     }
 
     listAllByAttribute(target: string, query: Query, limit?: number): Promise<firebase.firestore.QuerySnapshot> {

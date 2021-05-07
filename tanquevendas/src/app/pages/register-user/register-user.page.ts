@@ -1,18 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, ToastController } from "@ionic/angular";
-import { DefaultDAO } from "src/dao/defaultDAO";
-import * as firebase from "firebase";
-import { User } from "src/app/model/user";
-import { Organization } from "src/app/model/organization";
-import { ActivatedRoute } from "@angular/router";
-import { PopoverController } from "@ionic/angular";
-import { LinkUserPage } from "../link-user/link-user.page";
+import { Component, OnInit } from '@angular/core';
+import {
+  LoadingController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
+import { DefaultDAO } from 'src/dao/defaultDAO';
+import * as firebase from 'firebase';
+import { User } from 'src/app/model/user';
+import { Organization } from 'src/app/model/organization';
+import { ActivatedRoute } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { LinkUserPage } from '../link-user/link-user.page';
 import { Sheet } from 'src/app/model/sheet';
 
 @Component({
-  selector: "app-register-user",
-  templateUrl: "./register-user.page.html",
-  styleUrls: ["./register-user.page.scss"],
+  selector: 'app-register-user',
+  templateUrl: './register-user.page.html',
+  styleUrls: ['./register-user.page.scss'],
 })
 export class RegisterUserPage implements OnInit {
   public userData: any = {};
@@ -20,26 +24,28 @@ export class RegisterUserPage implements OnInit {
   public sheetData: any = {};
   public organizationList = [];
   public sheetsList = [];
-  private target = "organization";
-  private targetUser = "user";
-  private targetSheets = "sheets";
+  private target = 'organization';
+  private targetUser = 'user';
+  private targetSheets = 'sheets';
   private organizationSelect: any = {};
   private sheetSelect: any = {};
   private uidUser: string = null;
   private selectedUser: User = null;
   private linkAlter: String = null;
+  private loading: any;
 
   constructor(
     private dao: DefaultDAO,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private activatedRoute: ActivatedRoute,
-    private popCtrl: PopoverController
+    private popCtrl: PopoverController,
+    private loadingCtrl: LoadingController
   ) {}
 
   async refreshOrganization() {
     this.organizationList = [];
-    await this.dao.listAll(this.target).subscribe((value) => {
+    await this.dao.listAll(this.target).then((value) => {
       value.forEach((result) => {
         let object = result.data();
         this.organizationList.push(object);
@@ -49,7 +55,7 @@ export class RegisterUserPage implements OnInit {
 
   async refreshSheets() {
     this.sheetsList = [];
-    await this.dao.listAll(this.targetSheets).subscribe((value) => {
+    await this.dao.listAll(this.targetSheets).then((value) => {
       value.forEach((result) => {
         let object = result.data();
         this.sheetsList.push(object);
@@ -65,12 +71,12 @@ export class RegisterUserPage implements OnInit {
       this.organizationData.id == null ||
       this.sheetData.id == null
     ) {
-      this.presentToast("Validação", "Campos obrigatórios", "warning");
+      this.presentToast('Validação', 'Campos obrigatórios', 'warning');
     } else {
       this.organizationSelect = this.organizationList.filter(
         (item) => item._id === this.organizationData.id
       );
-      
+
       this.sheetSelect = this.sheetsList.filter(
         (item) => item._id === this.sheetData.id
       );
@@ -124,10 +130,10 @@ export class RegisterUserPage implements OnInit {
       await this.dao
         .updateByReference(this.targetUser, this.selectedUser.id, newUser)
         .then(() => {
-          this.presentToast("Sucesso", "Usuário atualizado!", "success");
+          this.presentToast('Sucesso', 'Usuário atualizado!', 'success');
         });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -141,7 +147,7 @@ export class RegisterUserPage implements OnInit {
           this.uidUser = resp.user.uid;
         });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
 
     this.saveCollectionUser(this.uidUser);
@@ -181,11 +187,11 @@ export class RegisterUserPage implements OnInit {
       newUser.sheet = Object.assign({}, newSheet);
 
       this.dao.addNew(this.targetUser, newUser).then((dados) => {
-        this.presentToast("Sucesso", "Usuário registrado!", "success");
+        this.presentToast('Sucesso', 'Usuário registrado!', 'success');
         this.clearForm();
       });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -201,7 +207,7 @@ export class RegisterUserPage implements OnInit {
   }
 
   returnPage() {
-    this.navCtrl.navigateBack("/pages/users");
+    this.navCtrl.navigateBack('/pages/users');
     this.clearForm();
   }
 
@@ -209,10 +215,19 @@ export class RegisterUserPage implements OnInit {
     this.userData = {};
   }
 
-  ionViewWillEnter() {
-    this.refreshOrganization();
-    this.refreshSheets();
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Por favor, aguarde...',
+    });
+    return this.loading.present();
+  }
+
+  async ionViewWillEnter() {
+    this.presentLoading();
+    await this.refreshOrganization();
+    await this.refreshSheets();
     this.ngOnInit();
+    this.loading.dismiss();
   }
 
   clickLinks() {
@@ -222,8 +237,8 @@ export class RegisterUserPage implements OnInit {
   async presentPopoverLinks() {
     const popLinks = this.popCtrl.create({
       component: LinkUserPage,
-      cssClass: "popover-edt",
-      mode: "md",
+      cssClass: 'popover-edt',
+      mode: 'md',
     });
     (await popLinks).onDidDismiss().then((resp: any) => {
       if (!resp) return;
@@ -236,7 +251,7 @@ export class RegisterUserPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.uidUser = this.activatedRoute.snapshot.paramMap.get("id");
+    this.uidUser = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.uidUser != null) {
       //Carrega as informações do usuário com base no ID do parâmetro
       await this.dao
@@ -258,10 +273,7 @@ export class RegisterUserPage implements OnInit {
               this.selectedUser.organization
             );
 
-            newSheet = Object.assign(
-              new Sheet(),
-              this.selectedUser.sheet
-            );
+            newSheet = Object.assign(new Sheet(), this.selectedUser.sheet);
 
             this.organizationData.id = newOrganization.id;
             this.organizationData.corporateName = newOrganization.corporateName;

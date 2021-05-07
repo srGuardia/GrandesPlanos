@@ -12,7 +12,7 @@ export abstract class DefaultDAOInterface {
     abstract removeByReference(target: string, reference: any): Promise<void>;
     abstract addNew(target: string, object: any): Promise<void>;
     abstract updateByReference(target: string, reference: any, object: any): Promise<void>;
-    abstract listAll(target: string, limit?: number): Observable<any>;
+    abstract listAll(target: string, limit?: number): Promise<any>;
     abstract listAllByAttribute(target: string, query: Query, limit?: number): Promise<any>;
     abstract listAllByAttributes(target: string, query: Query[], limit?: number): Promise<any>;
 }
