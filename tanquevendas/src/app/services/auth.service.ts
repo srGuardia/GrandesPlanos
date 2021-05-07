@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from 'firebase'
+import { User } from 'firebase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private checkLoop = null;
-  private checkInterval = 1;//1 MINUTE
+  private checkInterval = 1;
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(public afAuth: AngularFireAuth) {}
 
   login(user): Promise<firebase.auth.UserCredential> {
-    return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+    return this.afAuth.auth.signInWithEmailAndPassword(
+      user.email,
+      user.password
+    );
   }
 
   logout() {
@@ -33,7 +36,6 @@ export class AuthService {
       this.checkLoop = null;
     }
     //Checkin Credentials
-
 
     this.checkLoop = setTimeout(() => {
       this.checkCredentials();

@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
   constructor(
@@ -20,7 +20,7 @@ export class AppComponent {
     private translate: TranslateService,
     public authService: AuthService,
     public storage: Storage,
-    public navCtrl: NavController,
+    public navCtrl: NavController
   ) {
     this.initializeApp();
   }
@@ -31,11 +31,16 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.getAuth().onAuthStateChanged(user => {
-        if (!user) {
-          this.storage.remove('user').then(() => {
-            this.navCtrl.navigateRoot('/login');
-          });
+      this.storage.get('userData').then((userData) => {
+        if (!userData) {
+          this.navCtrl.navigateRoot('/login');
+          this.storage.clear();
+        } else {
+          if (userData._adm) {
+            this.navCtrl.navigateForward('/pages/users');
+          } else {
+            this.navCtrl.navigateForward('/pages/home');
+          }
         }
       });
     });
