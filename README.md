@@ -1,4 +1,4 @@
-# Tanque de Vendas - (Ionic, Firebase, React Native UI Kitten)
+# Tanque de Vendas - (Ionic, Firebase)
 
 > A ideia é continuar a captura e edição das informações dos clientes utilizando o Google Forms. Foi utilizada uma macro que gera um UUID para cada registro na planilha de coleta de dados e permite a edição com o uso deste link. [Planilha](https://xfanatical.com/blog/how-to-edit-google-forms-responses-in-the-spreadsheet/)
 
