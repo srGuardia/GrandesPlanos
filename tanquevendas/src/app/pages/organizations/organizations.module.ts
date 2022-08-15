@@ -13,8 +13,8 @@ import { OrganizationsPage } from './organizations.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    OrganizationsPageRoutingModule
+    OrganizationsPageRoutingModule,
   ],
-  declarations: [OrganizationsPage]
+  declarations: [OrganizationsPage],
 })
 export class OrganizationsPageModule {}

@@ -1,4 +1,4 @@
-import { Organization } from "./organization";
+import { Organization } from './organization';
 import { Sheet } from './sheet';
 
 export class User {

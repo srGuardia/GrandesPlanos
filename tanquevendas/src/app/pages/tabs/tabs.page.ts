@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Global } from "src/app/global";
-import { TranslateService } from "@ngx-translate/core";
-import { Storage } from "@ionic/storage";
+import { Component, OnInit } from '@angular/core';
+import { Global } from 'src/app/global';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: "app-tabs",
-  templateUrl: "./tabs.page.html",
-  styleUrls: ["./tabs.page.scss"],
+  selector: 'app-tabs',
+  templateUrl: './tabs.page.html',
+  styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
   private userData: any = {};
@@ -18,7 +18,7 @@ export class TabsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.storage.get("userData").then((dados) => {
+    await this.storage.get('userData').then((dados) => {
       if (dados != null) {
         this.userData.id = dados._id;
         this.userData.name = dados._name;

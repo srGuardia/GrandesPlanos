@@ -8,18 +8,13 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 
-import { NavParams } from "@ionic/angular";
+import { NavParams } from '@ionic/angular';
 import { ObjectFactory } from 'src/app/util/object-factory';
 import { DefaultDAO } from 'src/dao/defaultDAO';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    LoginPageRoutingModule
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule],
   declarations: [LoginPage],
-  providers: [NavParams, DefaultDAO, ObjectFactory]
+  providers: [NavParams, DefaultDAO, ObjectFactory],
 })
-export class LoginPageModule { }
+export class LoginPageModule {}

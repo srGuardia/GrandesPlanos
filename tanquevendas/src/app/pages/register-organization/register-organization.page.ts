@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { NavController, ToastController } from "@ionic/angular";
-import { Organization } from "src/app/model/organization";
-import { DefaultDAO } from "src/dao/defaultDAO";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
+import { Organization } from 'src/app/model/organization';
+import { DefaultDAO } from 'src/dao/defaultDAO';
 
 @Component({
-  selector: "app-register-organization",
-  templateUrl: "./register-organization.page.html",
-  styleUrls: ["./register-organization.page.scss"],
+  selector: 'app-register-organization',
+  templateUrl: './register-organization.page.html',
+  styleUrls: ['./register-organization.page.scss'],
 })
 export class RegisterOrganizationPage implements OnInit {
   public organizationData: any = {};
-  private target = "organization";
+  private target = 'organization';
   private uidOrganization: string = null;
   private selectOrganization: Organization = null;
 
@@ -34,7 +34,7 @@ export class RegisterOrganizationPage implements OnInit {
       (this.organizationData.secondActionName == null &&
         this.organizationData.secondActionName == null)
     ) {
-      this.presentToast("Validação", "Campo obrigatório", "warning");
+      this.presentToast('Validação', 'Campo obrigatório', 'warning');
     } else {
       if (this.selectOrganization != null) {
         this.updateOrganization();
@@ -50,22 +50,24 @@ export class RegisterOrganizationPage implements OnInit {
 
       newOrganization.id = this.selectOrganization.id;
       newOrganization.corporateName = this.organizationData.corporateName;
-      newOrganization.linkRegister = this.organizationData.linkRegister || "";
-      newOrganization.linkForecast = this.organizationData.linkForecast || "";
-      newOrganization.linkSales = this.organizationData.linkSales || "";
+      newOrganization.linkRegister = this.organizationData.linkRegister || '';
+      newOrganization.linkForecast = this.organizationData.linkForecast || '';
+      newOrganization.linkSales = this.organizationData.linkSales || '';
 
       if (this.activeActions) {
         newOrganization.active = this.organizationData.active;
         newOrganization.firstActionName = this.organizationData.firstActionName;
         newOrganization.firstActionLink = this.organizationData.firstActionLink;
-        newOrganization.secondActionName = this.organizationData.secondActionName;
-        newOrganization.secondActionLink = this.organizationData.secondActionLink;
+        newOrganization.secondActionName =
+          this.organizationData.secondActionName;
+        newOrganization.secondActionLink =
+          this.organizationData.secondActionLink;
       } else {
         newOrganization.active = false;
-        newOrganization.firstActionName = "";
-        newOrganization.firstActionLink = "";
-        newOrganization.secondActionName = "";
-        newOrganization.secondActionLink = "";
+        newOrganization.firstActionName = '';
+        newOrganization.firstActionLink = '';
+        newOrganization.secondActionName = '';
+        newOrganization.secondActionLink = '';
       }
 
       await this.dao
@@ -75,11 +77,11 @@ export class RegisterOrganizationPage implements OnInit {
           newOrganization
         )
         .then(() => {
-          this.presentToast("Sucesso", "Empresa atualizada!", "success");
+          this.presentToast('Sucesso', 'Empresa atualizada!', 'success');
           this.ngOnInit();
         });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -90,34 +92,36 @@ export class RegisterOrganizationPage implements OnInit {
       newOrganization.corporateName = this.organizationData.corporateName;
       newOrganization.linkRegister = this.organizationData.linkRegister
         ? this.organizationData.linkRegister
-        : "";
+        : '';
       newOrganization.linkForecast = this.organizationData.linkForecast
         ? this.organizationData.linkForecast
-        : "";
+        : '';
       newOrganization.linkSales = this.organizationData.linkSales
         ? this.organizationData.linkSales
-        : "";
+        : '';
 
       if (this.activeActions) {
         newOrganization.active = this.organizationData.active;
         newOrganization.firstActionName = this.organizationData.firstActionName;
         newOrganization.firstActionLink = this.organizationData.firstActionLink;
-        newOrganization.secondActionName = this.organizationData.secondActionName;
-        newOrganization.secondActionLink = this.organizationData.secondActionLink;
+        newOrganization.secondActionName =
+          this.organizationData.secondActionName;
+        newOrganization.secondActionLink =
+          this.organizationData.secondActionLink;
       } else {
         newOrganization.active = false;
-        newOrganization.firstActionName = "";
-        newOrganization.firstActionLink = "";
-        newOrganization.secondActionName = "";
-        newOrganization.secondActionLink = "";
+        newOrganization.firstActionName = '';
+        newOrganization.firstActionLink = '';
+        newOrganization.secondActionName = '';
+        newOrganization.secondActionLink = '';
       }
 
       this.dao.addNew(this.target, newOrganization).then(() => {
-        this.presentToast("Sucesso", "Empresa registrada!", "success");
+        this.presentToast('Sucesso', 'Empresa registrada!', 'success');
         this.clearForm();
       });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -133,7 +137,7 @@ export class RegisterOrganizationPage implements OnInit {
   }
 
   returnPage() {
-    this.navCtrl.navigateBack("/pages/organizations");
+    this.navCtrl.navigateBack('/pages/organizations');
     this.clearForm();
   }
 
@@ -151,7 +155,7 @@ export class RegisterOrganizationPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.uidOrganization = this.activatedRoute.snapshot.paramMap.get("id");
+    this.uidOrganization = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.uidOrganization != null) {
       //Carrega as informações do usuário com base no ID do parâmetro
       await this.dao
@@ -164,15 +168,22 @@ export class RegisterOrganizationPage implements OnInit {
 
           if (this.selectOrganization != null) {
             this.activeActions = this.selectOrganization.active;
-            this.organizationData.corporateName = this.selectOrganization.corporateName;
-            this.organizationData.linkForecast = this.selectOrganization.linkForecast;
-            this.organizationData.linkRegister = this.selectOrganization.linkRegister;
+            this.organizationData.corporateName =
+              this.selectOrganization.corporateName;
+            this.organizationData.linkForecast =
+              this.selectOrganization.linkForecast;
+            this.organizationData.linkRegister =
+              this.selectOrganization.linkRegister;
             this.organizationData.linkSales = this.selectOrganization.linkSales;
             this.organizationData.active = this.selectOrganization.active;
-            this.organizationData.firstActionName = this.selectOrganization.firstActionName;
-            this.organizationData.firstActionLink = this.selectOrganization.firstActionLink;
-            this.organizationData.secondActionName = this.selectOrganization.secondActionName;
-            this.organizationData.secondActionLink = this.selectOrganization.secondActionLink;
+            this.organizationData.firstActionName =
+              this.selectOrganization.firstActionName;
+            this.organizationData.firstActionLink =
+              this.selectOrganization.firstActionLink;
+            this.organizationData.secondActionName =
+              this.selectOrganization.secondActionName;
+            this.organizationData.secondActionLink =
+              this.selectOrganization.secondActionLink;
           }
         });
     }

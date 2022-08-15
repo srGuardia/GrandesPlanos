@@ -13,8 +13,8 @@ import { RegisterSheetPage } from './register-sheet.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterSheetPageRoutingModule
+    RegisterSheetPageRoutingModule,
   ],
-  declarations: [RegisterSheetPage]
+  declarations: [RegisterSheetPage],
 })
 export class RegisterSheetPageModule {}

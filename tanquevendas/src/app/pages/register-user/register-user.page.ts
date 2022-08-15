@@ -113,10 +113,14 @@ export class RegisterUserPage implements OnInit {
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
       newOrganization.active = this.organizationSelect[0]._active;
-      newOrganization.firstActionName = this.organizationSelect[0]._firstActionName;
-      newOrganization.firstActionLink = this.organizationSelect[0]._firstActionLink;
-      newOrganization.secondActionName = this.organizationSelect[0]._secondActionName;
-      newOrganization.secondActionLink = this.organizationSelect[0]._secondActionLink;
+      newOrganization.firstActionName =
+        this.organizationSelect[0]._firstActionName;
+      newOrganization.firstActionLink =
+        this.organizationSelect[0]._firstActionLink;
+      newOrganization.secondActionName =
+        this.organizationSelect[0]._secondActionName;
+      newOrganization.secondActionLink =
+        this.organizationSelect[0]._secondActionLink;
 
       newSheet.id = this.sheetSelect[0]._id;
       newSheet.nameSheet = this.sheetSelect[0]._nameSheet;
@@ -172,10 +176,14 @@ export class RegisterUserPage implements OnInit {
       newOrganization.linkForecast = this.organizationSelect[0]._linkForecast;
       newOrganization.linkSales = this.organizationSelect[0]._linkSales;
       newOrganization.active = this.organizationSelect[0]._active;
-      newOrganization.firstActionName = this.organizationSelect[0]._firstActionName;
-      newOrganization.firstActionLink = this.organizationSelect[0]._firstActionLink;
-      newOrganization.secondActionName = this.organizationSelect[0]._secondActionName;
-      newOrganization.secondActionLink = this.organizationSelect[0]._secondActionLink;
+      newOrganization.firstActionName =
+        this.organizationSelect[0]._firstActionName;
+      newOrganization.firstActionLink =
+        this.organizationSelect[0]._firstActionLink;
+      newOrganization.secondActionName =
+        this.organizationSelect[0]._secondActionName;
+      newOrganization.secondActionLink =
+        this.organizationSelect[0]._secondActionLink;
 
       newSheet.id = this.sheetSelect[0]._id;
       newSheet.nameSheet = this.sheetSelect[0]._nameSheet;

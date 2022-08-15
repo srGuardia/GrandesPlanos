@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { PopoverController, ToastController } from "@ionic/angular";
-import { Storage } from "@ionic/storage";
-import { Global } from "src/app/global";
-import { GoogleProvider } from "src/app/providers/google";
+import { Component, OnInit } from '@angular/core';
+import { PopoverController, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Global } from 'src/app/global';
+import { GoogleProvider } from 'src/app/providers/google';
 
 @Component({
-  selector: "app-link-user",
-  templateUrl: "./link-user.page.html",
-  styleUrls: ["./link-user.page.scss"],
+  selector: 'app-link-user',
+  templateUrl: './link-user.page.html',
+  styleUrls: ['./link-user.page.scss'],
 })
 export class LinkUserPage implements OnInit {
   public listLinks: any[] = [];
   private userData: any = {};
-  private display: string = "none";
+  private display: string = 'none';
 
   constructor(
     private googleProvider: GoogleProvider,
@@ -23,7 +23,7 @@ export class LinkUserPage implements OnInit {
   ) {}
 
   async refreshLinksUsers() {
-    this.storage.get("userData").then((dados) => {
+    this.storage.get('userData').then((dados) => {
       this.googleProvider.load(dados._sheet._refSheet).then((sheetRef: any) => {
         const obj: any = sheetRef.feed;
         this.listLinks = obj.entry;

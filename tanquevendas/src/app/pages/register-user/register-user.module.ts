@@ -13,8 +13,8 @@ import { RegisterUserPage } from './register-user.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterUserPageRoutingModule
+    RegisterUserPageRoutingModule,
   ],
-  declarations: [RegisterUserPage]
+  declarations: [RegisterUserPage],
 })
 export class RegisterUserPageModule {}

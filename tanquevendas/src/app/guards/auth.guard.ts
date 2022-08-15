@@ -6,23 +6,26 @@ import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService, private navCtrl: NavController, private storage: Storage
-  ) { }
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private storage: Storage
+  ) {}
 
-  canActivate(): Promise<boolean>{
-    return new Promise(resolve => {
-      this.storage.get('user').then(user => {
-        if (!user) {
-          this.navCtrl.navigateRoot('/login');
-        }
-        resolve(user ? true : false);
-      }, error => {
-      });
+  canActivate(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.storage.get('user').then(
+        (user) => {
+          if (!user) {
+            this.navCtrl.navigateRoot('/login');
+          }
+          resolve(user ? true : false);
+        },
+        (error) => {}
+      );
     });
   }
 }

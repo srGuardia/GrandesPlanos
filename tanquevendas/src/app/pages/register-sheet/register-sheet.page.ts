@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { NavController, ToastController } from "@ionic/angular";
-import { Sheet } from "src/app/model/sheet";
-import { DefaultDAO } from "src/dao/defaultDAO";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
+import { Sheet } from 'src/app/model/sheet';
+import { DefaultDAO } from 'src/dao/defaultDAO';
 
 @Component({
-  selector: "app-register-sheet",
-  templateUrl: "./register-sheet.page.html",
-  styleUrls: ["./register-sheet.page.scss"],
+  selector: 'app-register-sheet',
+  templateUrl: './register-sheet.page.html',
+  styleUrls: ['./register-sheet.page.scss'],
 })
 export class RegisterSheetPage implements OnInit {
   private uidSheet = null;
   private selectSheet: Sheet = null;
-  private target: string = "sheets";
+  private target: string = 'sheets';
   public sheetData: any = {};
 
   constructor(
@@ -28,7 +28,7 @@ export class RegisterSheetPage implements OnInit {
       this.sheetData.colorSheet == null ||
       this.sheetData.refSheet == null
     ) {
-      this.presentToast("Validação", "Campos obrigatórios", "warning");
+      this.presentToast('Validação', 'Campos obrigatórios', 'warning');
     } else {
       if (this.selectSheet == null) {
         this.createCollectionSheet();
@@ -59,11 +59,11 @@ export class RegisterSheetPage implements OnInit {
       newSheet.refSheet = this.sheetData.refSheet;
 
       this.dao.addNew(this.target, newSheet).then(() => {
-        this.presentToast("Sucesso", "Formulário registrado!", "success");
+        this.presentToast('Sucesso', 'Formulário registrado!', 'success');
         this.clearForm();
       });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -72,7 +72,7 @@ export class RegisterSheetPage implements OnInit {
   }
 
   returnPage() {
-    this.navCtrl.navigateBack("/pages/sheets");
+    this.navCtrl.navigateBack('/pages/sheets');
     this.clearForm();
   }
 
@@ -89,10 +89,10 @@ export class RegisterSheetPage implements OnInit {
       await this.dao
         .updateByReference(this.target, this.selectSheet.id, newSheet)
         .then(() => {
-          this.presentToast("Sucesso", "Formulário atualizado!", "success");
+          this.presentToast('Sucesso', 'Formulário atualizado!', 'success');
         });
     } catch (error) {
-      this.presentToast("Erro", error.message, "danger");
+      this.presentToast('Erro', error.message, 'danger');
     }
   }
 
@@ -101,7 +101,7 @@ export class RegisterSheetPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.uidSheet = this.activatedRoute.snapshot.paramMap.get("id");
+    this.uidSheet = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.uidSheet != null) {
       //Carrega as informações do usuário com base no ID do parâmetro

@@ -6,8 +6,8 @@ import { RegisterOrganizationPage } from './register-organization.page';
 const routes: Routes = [
   {
     path: '',
-    component: RegisterOrganizationPage
-  }
+    component: RegisterOrganizationPage,
+  },
 ];
 
 @NgModule({

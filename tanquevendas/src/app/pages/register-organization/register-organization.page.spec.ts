@@ -9,8 +9,8 @@ describe('RegisterOrganizationPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterOrganizationPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [RegisterOrganizationPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterOrganizationPage);

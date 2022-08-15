@@ -9,8 +9,8 @@ describe('LinkUserPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkUserPage ],
-      imports: [IonicModule.forRoot()]
+      declarations: [LinkUserPage],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LinkUserPage);

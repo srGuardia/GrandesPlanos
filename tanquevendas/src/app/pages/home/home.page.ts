@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { NavController, PopoverController } from "@ionic/angular";
-import { Storage } from "@ionic/storage";
-import { Global } from "src/app/global";
-import { Organization } from "src/app/model/organization";
-import { User } from "src/app/model/user";
-import { DefaultDAO } from "src/dao/defaultDAO";
-import { LinkUserPage } from "../link-user/link-user.page";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController, PopoverController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Global } from 'src/app/global';
+import { Organization } from 'src/app/model/organization';
+import { User } from 'src/app/model/user';
+import { DefaultDAO } from 'src/dao/defaultDAO';
+import { LinkUserPage } from '../link-user/link-user.page';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.page.html",
-  styleUrls: ["./home.page.scss"],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
   public userData: any = {};
@@ -30,7 +30,7 @@ export class HomePage implements OnInit {
 
   resetLogin() {
     this.storage.clear();
-    this.navCtrl.navigateBack("login");
+    this.navCtrl.navigateBack('login');
   }
 
   clickLinks() {
@@ -40,8 +40,8 @@ export class HomePage implements OnInit {
   async presentPopoverLinks() {
     const popLinks = this.popCtrl.create({
       component: LinkUserPage,
-      cssClass: "popover-edt",
-      mode: "md",
+      cssClass: 'popover-edt',
+      mode: 'md',
     });
     (await popLinks).onDidDismiss().then((resp: any) => {
       if (!resp) return;
@@ -58,7 +58,7 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-    await this.storage.get("userData").then((dados) => {
+    await this.storage.get('userData').then((dados) => {
       if (dados != null) {
         this.userData.id = dados._id;
         this.userData.adm = dados._adm;
